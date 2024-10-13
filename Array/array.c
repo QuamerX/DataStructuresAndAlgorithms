@@ -83,11 +83,6 @@ void Array_Delete(Array_t* handle, uint32_t index)
 	return success;
 }
 
-void Array_Sort(Array_t* handle)
-{
-
-}
-
 int8_t Array_Get(Array_t* handle, uint32_t index, DATA_TYPE* data)
 {
 	int8_t success = -1;
@@ -143,12 +138,73 @@ DATA_TYPE Array_Max(Array_t* handle)
 
 void Array_Reverse(Array_t* handle)
 {
-
+	Array_t* reverseArrayHandle = Array_Create(handle->length);
+	for (uint32_t i = 0; i < handle->length; i++)
+	{
+		reverseArrayHandle->ptr[i] = handle->ptr[handle->length - 1 - i];
+	}
+	for (uint32_t i = 0; i < handle->length; i++)
+	{
+		handle->ptr[i] = reverseArrayHandle->ptr[i];
+	}
+	Array_Destroy(reverseArrayHandle);
 }
 
-void Array_Rotate(Array_t* handle)
+void Array_Rotate(Array_t* handle, EnumDirection_t direction, uint32_t shiftCount)
 {
+	Array_t* rotatedArrayHandle = Array_Create(handle->length);
+	if (direction == eDirection_RIGHT)
+	{
+		for (uint32_t i = 0; i < handle->length; i++)
+		{
+			uint32_t calculatedIndex = (i + shiftCount) % handle->length;
+			rotatedArrayHandle->ptr[calculatedIndex] = handle->ptr[i];
+		}
+		for (uint32_t i = 0; i < handle->length; i++)
+		{
+			handle->ptr[i] = rotatedArrayHandle->ptr[i];
+		}
+	}
+	else
+	{
+		for (int64_t i = handle->length - 1; i >= 0; i--)
+		{
+			uint32_t calculatedIndex = (i - (shiftCount % handle->length) + handle->length) % handle->length;
+			rotatedArrayHandle->ptr[calculatedIndex] = handle->ptr[i];
+		}
+		for (uint32_t i = 0; i < handle->length; i++)
+		{
+			handle->ptr[i] = rotatedArrayHandle->ptr[i];
+		}
+	}
+	Array_Destroy(rotatedArrayHandle);
+}
 
+Array_t* Array_Concat(Array_t* handle1, Array_t* handle2)
+{
+	uint32_t size = handle1->size + handle2->size;
+	uint32_t length = handle1->length + handle2->length;
+	Array_t* concatArrayHandle = Array_Create(size);
+	concatArrayHandle->length = length;
+	for (uint32_t i = 0; i < length; i++)
+	{
+		if (i < handle1->length)
+		{
+			concatArrayHandle->ptr[i] = handle1->ptr[i];
+		}
+		else
+		{
+			concatArrayHandle->ptr[i] = handle2->ptr[i - handle1->length];
+		}
+	}
+	Array_Destroy(handle1);
+	Array_Destroy(handle2);
+	return concatArrayHandle;
+}
+
+void Array_Sort(Array_t* handle)
+{
+	/* TODO: Add an enum for sorting algorithms */
 }
 
 int64_t Array_LineerSearch(Array_t* handle, DATA_TYPE data)
