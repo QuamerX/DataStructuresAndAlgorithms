@@ -129,4 +129,4 @@ int64_t Array_LineerSearch_MoveToFront(Array_t* handle, DATA_TYPE data);
  */
 int64_t Array_BinarySearch(Array_t* handle, DATA_TYPE data);
 
-#endif
+#endif /* ARRAY_H */
