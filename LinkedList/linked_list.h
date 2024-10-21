@@ -35,6 +35,8 @@ struct Node* LinkedList_CreateNode(DATA_TYPE data);
 
 void LinkedList_InsertFirstNode(LinkedList_t* handle, DATA_TYPE data);
 
+void LinkedList_DeleteLastNode(LinkedList_t* handle);
+
 /**
  *  Time Complexity = O(1)
  *
@@ -57,6 +59,39 @@ int8_t LinkedList_InsertAtTail(LinkedList_t* handle, DATA_TYPE data);
  *  - Max = O(n) if index is lenght of the list
  */
 int8_t LinkedList_InsertAtIndex(LinkedList_t* handle, DATA_TYPE data, uint32_t index);
+
+/**
+ *  Time Complexity = O(1)
+ *
+ *  We hold the head node so its simple to delete head
+ */
+int8_t LinkedList_DeleteAtHead(LinkedList_t* handle);
+
+/**
+ *  Time Complexity = O(n)
+ * 
+ *  Since we don't hold the previous node's pointer like double linked list
+ *  we have to go all the way to the tail.
+ */
+int8_t LinkedList_DeleteAtTail(LinkedList_t* handle);
+
+/**
+ *  Time Complexity:
+ *
+ *  - Min = O(1) if index is 0
+ *  - Max = O(n) if index is lenght of the list
+ */
+int8_t LinkedList_DeleteAtIndex(LinkedList_t* handle, uint32_t index);
+
+/**
+ *  Time Complexity = O(n)
+ */
+LinkedList_t* LinkedList_Reverse(LinkedList_t* handle);
+
+/**
+ *  Time Complexity = O(n)
+ */
+void LinkedList_Reverse_SlidingPointers(LinkedList_t* handle);
 
 /**
  *  Time Complexity:
