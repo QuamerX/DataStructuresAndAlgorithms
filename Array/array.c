@@ -5,7 +5,7 @@
 
 Array_t* Array_Create(int size)
 {
-	Array_t* arrayPointer =(Array_t*)malloc(sizeof(Array_t));
+	Array_t* arrayPointer = (Array_t*)malloc(sizeof(Array_t));
 	if (arrayPointer != NULL)
 	{
 		arrayPointer->ptr = (DATA_TYPE*)malloc(sizeof(DATA_TYPE) * size);
