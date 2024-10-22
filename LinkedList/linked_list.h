@@ -40,15 +40,12 @@ void LinkedList_DeleteLastNode(LinkedList_t* handle);
 /**
  *  Time Complexity = O(1)
  *
- *  We hold the head node so its simple to insert at head
  */
 int8_t LinkedList_InsertAtHead(LinkedList_t* handle, DATA_TYPE data);
 
 /**
- *  Time Complexity:
+ *  Time Complexity = O(1)
  *
- *  - Min = O(1) if we hold the tail node
- *  - Max = O(n) if we don't hold the tail node and have to reach the end starting from head node
  */
 int8_t LinkedList_InsertAtTail(LinkedList_t* handle, DATA_TYPE data);
 
@@ -92,6 +89,20 @@ LinkedList_t* LinkedList_Reverse(LinkedList_t* handle);
  *  Time Complexity = O(n)
  */
 void LinkedList_Reverse_SlidingPointers(LinkedList_t* handle);
+
+/**
+ *  Time Complexity = O(1)
+ */
+LinkedList_t* LinkedList_Concat(LinkedList_t* first, LinkedList_t* second);
+
+/**
+ *  Tortoise and Hare algorithm
+ * 
+ *  This algorithm starts with two pointers at the head
+ *  Slow pointer will jump 1 element while fast pointer jumps 2 element
+ *  If they ever meet at the same node this means there is a loop in Linked List.
+ */
+int8_t LinkedList_DetectLoop(LinkedList_t* handle);
 
 /**
  *  Time Complexity:

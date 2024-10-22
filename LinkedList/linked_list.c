@@ -57,6 +57,7 @@ struct Node* LinkedList_CreateNode(DATA_TYPE data)
 	if (newNode != NULL)
 	{
 		newNode->data = data;
+		newNode->next = NULL;
 	}
 	return newNode;
 }
@@ -67,7 +68,6 @@ void LinkedList_InsertFirstNode(LinkedList_t* handle, DATA_TYPE data)
 	if (newNode != NULL)
 	{
 		handle->head = newNode;
-		handle->head->next = NULL;
 		handle->tail = handle->head;
 		handle->length = 1;
 	}
@@ -272,6 +272,45 @@ void LinkedList_Reverse_SlidingPointers(LinkedList_t* handle)
 		currentNode = nextNode;
 	}
 	handle->head = previousNode;
+}
+
+LinkedList_t* LinkedList_Concat(LinkedList_t* first, LinkedList_t* second) 
+{
+	if (first->length == 0)
+	{
+		return second;
+	}
+	else if (second->length == 0)
+	{
+		return first;
+	}
+	else
+	{
+		first->tail->next = second->head;
+		first->tail = second->tail;
+		first->length += second->length;
+		free(second); /* Delete the handle of second list */
+		return first;
+	}
+}
+
+int8_t LinkedList_DetectLoop(LinkedList_t* handle)
+{
+	struct Node* slow = handle->head;
+	struct Node* fast = handle->head;
+	if (handle->length > 1)
+	{
+		while (slow != NULL && fast != NULL && fast->next != NULL)
+		{
+			slow = slow->next;
+			fast = fast->next->next;
+			if (slow == fast)
+			{
+				return 1;
+			}
+		}
+	}
+	return 0;
 }
 
 struct Node* LinkedList_Search(LinkedList_t* handle, DATA_TYPE data)
