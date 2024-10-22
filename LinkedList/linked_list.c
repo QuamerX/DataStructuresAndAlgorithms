@@ -7,7 +7,6 @@ LinkedList_t* LinkedList_Create()
 	if (handle != NULL)
 	{
 		handle->head = NULL;
-		handle->tail = NULL;
 		handle->length = 0;
 	}
 	return handle;
@@ -68,7 +67,6 @@ void LinkedList_InsertFirstNode(LinkedList_t* handle, DATA_TYPE data)
 	if (newNode != NULL)
 	{
 		handle->head = newNode;
-		handle->tail = handle->head;
 		handle->length = 1;
 	}
 }
@@ -77,7 +75,6 @@ void LinkedList_DeleteLastNode(LinkedList_t* handle)
 {
 	free(handle->head);
 	handle->head = NULL;
-	handle->tail = NULL;
 	handle->length = 0;
 }
 
@@ -111,11 +108,19 @@ int8_t LinkedList_InsertAtTail(LinkedList_t* handle, DATA_TYPE data)
 	}
 	else
 	{
-		struct Node* newTail = LinkedList_CreateNode(data);
-		if (newTail != NULL)
+		struct Node* newNode = LinkedList_CreateNode(data);
+		struct Node* iterator = handle->head;
+		if (newNode != NULL)
 		{
-			handle->tail->next = newTail;
-			handle->tail = newTail;
+			while (1)
+			{
+				if (iterator->next == NULL)
+				{
+					break;
+				}
+				iterator = iterator->next;
+			}
+			iterator->next = newNode;
 			handle->length++;
 			success = 0;
 		}
@@ -142,7 +147,7 @@ int8_t LinkedList_InsertAtIndex(LinkedList_t* handle, DATA_TYPE data, uint32_t i
 			if (newNode != NULL)
 			{
 				struct Node* iterator = handle->head;
-				for (size_t i = 0; i < handle->length; i++)
+				for (uint32_t i = 0; i < handle->length; i++)
 				{
 					if (i == index - 1)
 					{
@@ -195,8 +200,12 @@ int8_t LinkedList_DeleteAtTail(LinkedList_t* handle)
 		else
 		{
 			struct Node* iterator = handle->head;
-			for (uint32_t i = 0; i < handle->length - 2; i++)
+			while (1)
 			{
+				if(iterator->next->next == NULL)
+				{
+					break;
+				}
 				iterator = iterator->next;
 			}
 			free(iterator->next);
@@ -286,8 +295,16 @@ LinkedList_t* LinkedList_Concat(LinkedList_t* first, LinkedList_t* second)
 	}
 	else
 	{
-		first->tail->next = second->head;
-		first->tail = second->tail;
+		struct Node* iterator = first->head;
+		while (1)
+		{
+			if (iterator->next == NULL)
+			{
+				break;
+			}
+			iterator = iterator->next;
+		}
+		iterator->next = second->head;
 		first->length += second->length;
 		free(second); /* Delete the handle of second list */
 		return first;

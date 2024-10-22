@@ -14,7 +14,6 @@ struct Node
 typedef struct 
 {
 	struct Node* head;
-	struct Node* tail;
 	uint32_t length;
 }LinkedList_t;
 
@@ -44,8 +43,9 @@ void LinkedList_DeleteLastNode(LinkedList_t* handle);
 int8_t LinkedList_InsertAtHead(LinkedList_t* handle, DATA_TYPE data);
 
 /**
- *  Time Complexity = O(1)
+ *  Time Complexity = O(n)
  *
+ *  Have to iterate through all list
  */
 int8_t LinkedList_InsertAtTail(LinkedList_t* handle, DATA_TYPE data);
 
@@ -91,7 +91,10 @@ LinkedList_t* LinkedList_Reverse(LinkedList_t* handle);
 void LinkedList_Reverse_SlidingPointers(LinkedList_t* handle);
 
 /**
- *  Time Complexity = O(1)
+ *  Time Complexity = O(n)
+ * 
+ *  n = element count of first list
+ *  m = element count of second list
  */
 LinkedList_t* LinkedList_Concat(LinkedList_t* first, LinkedList_t* second);
 
