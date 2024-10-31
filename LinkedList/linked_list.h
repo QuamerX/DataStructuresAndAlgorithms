@@ -32,13 +32,12 @@ LL_DATA_TYPE LinkedList_Max(LinkedList_t* handle);
 
 struct LL_Node* LinkedList_CreateNode(LL_DATA_TYPE data);
 
-void LinkedList_InsertFirstNode(LinkedList_t* handle, LL_DATA_TYPE data);
+int8_t LinkedList_InsertFirstNode(LinkedList_t* handle, LL_DATA_TYPE data);
 
 int8_t LinkedList_DeleteLastNode(LinkedList_t* handle);
 
 /**
  *  Time Complexity = O(1)
- *
  */
 int8_t LinkedList_InsertAtHead(LinkedList_t* handle, LL_DATA_TYPE data);
 

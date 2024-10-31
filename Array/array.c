@@ -26,8 +26,11 @@ Array_t* Array_Create(int size)
 
 void Array_Destroy(Array_t* handle)
 {
-	free(handle->ptr);
-	free(handle);	
+	if (handle != NULL)
+	{
+		free(handle->ptr);
+		free(handle);
+	}
 }
 
 void Array_Display(Array_t* handle)

@@ -14,13 +14,16 @@ LLB_Stack_t* LLB_Stack_Create()
 
 void LLB_Stack_Destroy(LLB_Stack_t* handle)
 {
-	for (uint32_t i = 0; i < handle->length; i++)
+	if (handle != NULL)
 	{
-		struct LLB_Node* node = handle->top->next;
-		free(handle->top);
-		handle->top = node;
+		for (uint32_t i = 0; i < handle->length; i++)
+		{
+			struct LLB_Node* node = handle->top->next;
+			free(handle->top);
+			handle->top = node;
+		}
+		free(handle);
 	}
-	free(handle);
 }
 
 void LLB_Stack_Display(LLB_Stack_t* handle)

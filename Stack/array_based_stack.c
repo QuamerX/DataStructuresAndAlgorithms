@@ -26,8 +26,11 @@ AB_Stack_t* AB_Stack_Create(int size)
 
 void AB_Stack_Destroy(AB_Stack_t* handle)
 {
-	free(handle->ptr);
-	free(handle);
+	if (handle != NULL)
+	{
+		free(handle->ptr);
+		free(handle);
+	}
 }
 
 void AB_Stack_Display(AB_Stack_t* handle)

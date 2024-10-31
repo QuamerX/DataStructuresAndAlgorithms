@@ -14,13 +14,16 @@ LinkedList_t* LinkedList_Create()
 
 void LinkedList_Destroy(LinkedList_t* handle)
 {
-	for (uint32_t i = 0; i < handle->length; i++)
+	if (handle != NULL)
 	{
-		struct LL_Node* node = handle->head->next;
-		free(handle->head);
-		handle->head = node;
+		for (uint32_t i = 0; i < handle->length; i++)
+		{
+			struct LL_Node* node = handle->head->next;
+			free(handle->head);
+			handle->head = node;
+		}
+		free(handle);
 	}
-	free(handle);
 }
 
 void LinkedList_Display(LinkedList_t* handle)

@@ -15,13 +15,16 @@ DoubleLinkedList_t* DoubleLinkedList_Create()
 
 void DoubleLinkedList_Destroy(DoubleLinkedList_t* handle)
 {
-	for (uint32_t i = 0; i < handle->length; i++)
+	if (handle != NULL)
 	{
-		struct Double_LL_Node* node = handle->head->next;
-		free(handle->head);
-		handle->head = node;
+		for (uint32_t i = 0; i < handle->length; i++)
+		{
+			struct Double_LL_Node* node = handle->head->next;
+			free(handle->head);
+			handle->head = node;
+		}
+		free(handle);
 	}
-	free(handle);
 }
 
 void DoubleLinkedList_Display(DoubleLinkedList_t* handle)
