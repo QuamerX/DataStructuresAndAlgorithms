@@ -34,7 +34,7 @@ struct LL_Node* LinkedList_CreateNode(LL_DATA_TYPE data);
 
 void LinkedList_InsertFirstNode(LinkedList_t* handle, LL_DATA_TYPE data);
 
-void LinkedList_DeleteLastNode(LinkedList_t* handle);
+int8_t LinkedList_DeleteLastNode(LinkedList_t* handle);
 
 /**
  *  Time Complexity = O(1)

@@ -61,21 +61,30 @@ struct LL_Node* LinkedList_CreateNode(LL_DATA_TYPE data)
 	return newNode;
 }
 
-void LinkedList_InsertFirstNode(LinkedList_t* handle, LL_DATA_TYPE data) 
+int8_t LinkedList_InsertFirstNode(LinkedList_t* handle, LL_DATA_TYPE data)
 {
+	int8_t success = -1;
 	struct LL_Node* newNode = LinkedList_CreateNode(data);
 	if (newNode != NULL)
 	{
 		handle->head = newNode;
 		handle->length = 1;
+		success = 0;
 	}
+	return success;
 }
 
-void LinkedList_DeleteLastNode(LinkedList_t* handle)
+int8_t LinkedList_DeleteLastNode(LinkedList_t* handle)
 {
-	free(handle->head);
-	handle->head = NULL;
-	handle->length = 0;
+	int8_t success = -1;
+	if (handle != NULL)
+	{
+		free(handle->head);
+		handle->head = NULL;
+		handle->length = 0;
+		success = 0;
+	}
+	return success;
 }
 
 int8_t LinkedList_InsertAtHead(LinkedList_t* handle, LL_DATA_TYPE data)
@@ -83,7 +92,7 @@ int8_t LinkedList_InsertAtHead(LinkedList_t* handle, LL_DATA_TYPE data)
 	int8_t success = -1;
 	if (handle->length == 0)
 	{
-		LinkedList_InsertFirstNode(handle, data);
+		success = LinkedList_InsertFirstNode(handle, data);
 	}
 	else
 	{
@@ -104,7 +113,7 @@ int8_t LinkedList_InsertAtTail(LinkedList_t* handle, LL_DATA_TYPE data)
 	int8_t success = -1;
 	if (handle->length == 0)
 	{
-		LinkedList_InsertFirstNode(handle, data);
+		success = LinkedList_InsertFirstNode(handle, data);
 	}
 	else
 	{
@@ -173,7 +182,7 @@ int8_t LinkedList_DeleteAtHead(LinkedList_t* handle)
 	{
 		if (handle->length == 1)
 		{
-			LinkedList_DeleteLastNode(handle);
+			success = LinkedList_DeleteLastNode(handle);
 		}
 		else
 		{
@@ -195,7 +204,7 @@ int8_t LinkedList_DeleteAtTail(LinkedList_t* handle)
 	{
 		if (handle->length == 1)
 		{
-			LinkedList_DeleteLastNode(handle);
+			success = LinkedList_DeleteLastNode(handle);
 		}
 		else
 		{

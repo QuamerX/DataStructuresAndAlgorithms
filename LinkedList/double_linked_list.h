@@ -34,9 +34,9 @@ DOUBLE_LL_DATA_TYPE DoubleLinkedList_Max(DoubleLinkedList_t* handle);
 
 struct Double_LL_Node* DoubleLinkedList_CreateNode(DOUBLE_LL_DATA_TYPE data);
 
-void DoubleLinkedList_InsertFirstNode(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data);
+int8_t DoubleLinkedList_InsertFirstNode(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data);
 
-void DoubleLinkedList_DeleteLastNode(DoubleLinkedList_t* handle);
+int8_t DoubleLinkedList_DeleteLastNode(DoubleLinkedList_t* handle);
 
 /**
  *  Time Complexity = O(1)

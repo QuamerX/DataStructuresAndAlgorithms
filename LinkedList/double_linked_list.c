@@ -63,23 +63,32 @@ struct Double_LL_Node* DoubleLinkedList_CreateNode(DOUBLE_LL_DATA_TYPE data)
 	return newNode;
 }
 
-void DoubleLinkedList_InsertFirstNode(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data) 
+int8_t DoubleLinkedList_InsertFirstNode(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data)
 {
+	int8_t success = -1;
 	struct Double_LL_Node* newNode = DoubleLinkedList_CreateNode(data);
 	if (newNode != NULL)
 	{
 		handle->head = newNode;
 		handle->tail = handle->head;
 		handle->length = 1;
+		success = 0;
 	}
+	return success;
 }
 
-void DoubleLinkedList_DeleteLastNode(DoubleLinkedList_t* handle)
+int8_t DoubleLinkedList_DeleteLastNode(DoubleLinkedList_t* handle)
 {
-	free(handle->head);
-	handle->head = NULL;
-	handle->tail = NULL;
-	handle->length = 0;
+	int8_t success = -1;
+	if (handle != NULL)
+	{
+		free(handle->head);
+		handle->head = NULL;
+		handle->tail = NULL;
+		handle->length = 0;
+		success = 0;
+	}
+	return success;
 }
 
 int8_t DoubleLinkedList_InsertAtHead(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data)
@@ -87,7 +96,7 @@ int8_t DoubleLinkedList_InsertAtHead(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_
 	int8_t success = -1;
 	if (handle->length == 0)
 	{
-		DoubleLinkedList_InsertFirstNode(handle, data);
+		success = DoubleLinkedList_InsertFirstNode(handle, data);
 	}
 	else
 	{
@@ -109,7 +118,7 @@ int8_t DoubleLinkedList_InsertAtTail(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_
 	int8_t success = -1;
 	if (handle->length == 0)
 	{
-		DoubleLinkedList_InsertFirstNode(handle, data);
+		success = DoubleLinkedList_InsertFirstNode(handle, data);
 	}
 	else
 	{
@@ -194,7 +203,7 @@ int8_t DoubleLinkedList_DeleteAtHead(DoubleLinkedList_t* handle)
 	{
 		if (handle->length == 1)
 		{
-			DoubleLinkedList_DeleteLastNode(handle);
+			success = DoubleLinkedList_DeleteLastNode(handle);
 		}
 		else
 		{
@@ -216,7 +225,7 @@ int8_t DoubleLinkedList_DeleteAtTail(DoubleLinkedList_t* handle)
 	{
 		if (handle->length == 1)
 		{
-			DoubleLinkedList_DeleteLastNode(handle);
+			success = DoubleLinkedList_DeleteLastNode(handle);
 		}
 		else
 		{
