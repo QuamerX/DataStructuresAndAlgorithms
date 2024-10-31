@@ -25,9 +25,9 @@ void LLB_Stack_Display(LLB_Stack_t* handle);
 
 struct LLB_Stack_Node* LLB_Stack_CreateNode(LLB_STACK_DATA_TYPE data);
 
-void LLB_Stack_InsertFirstNode(LLB_Stack_t* handle, LLB_STACK_DATA_TYPE data);
+int8_t LLB_Stack_InsertFirstNode(LLB_Stack_t* handle, LLB_STACK_DATA_TYPE data);
 
-void LLB_Stack_DeleteLastNode(LLB_Stack_t* handle);
+int8_t LLB_Stack_DeleteLastNode(LLB_Stack_t* handle);
 
 /**
  *  Time Complexity = O(1)

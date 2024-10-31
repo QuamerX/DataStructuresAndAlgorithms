@@ -49,21 +49,30 @@ struct LLB_Stack_Node* LLB_Stack_CreateNode(LLB_STACK_DATA_TYPE data)
 	return newNode;
 }
 
-void LLB_Stack_InsertFirstNode(LLB_Stack_t* handle, LLB_STACK_DATA_TYPE data)
+int8_t LLB_Stack_InsertFirstNode(LLB_Stack_t* handle, LLB_STACK_DATA_TYPE data)
 {
+	int8_t success = -1;
 	struct LLB_Stack_Node* newNode = LLB_Stack_CreateNode(data);
 	if (newNode != NULL)
 	{
 		handle->top = newNode;
 		handle->length = 1;
+		success = 0;
 	}
+	return success;
 }
 
-void LLB_Stack_DeleteLastNode(LLB_Stack_t* handle)
+int8_t LLB_Stack_DeleteLastNode(LLB_Stack_t* handle)
 {
-	free(handle->top);
-	handle->top = NULL;
-	handle->length = 0;
+	int8_t success = -1;
+	if (handle != NULL)
+	{
+		free(handle->top);
+		handle->top = NULL;
+		handle->length = 0;
+		success = 0;
+	}
+	return success;
 }
 
 int8_t LLB_Stack_Push(LLB_Stack_t* handle, LLB_STACK_DATA_TYPE data)
@@ -71,7 +80,7 @@ int8_t LLB_Stack_Push(LLB_Stack_t* handle, LLB_STACK_DATA_TYPE data)
 	int8_t success = -1;
 	if (handle->length == 0)
 	{
-		LLB_Stack_InsertFirstNode(handle, data);
+		success = LLB_Stack_InsertFirstNode(handle, data);
 	}
 	else
 	{
@@ -94,7 +103,7 @@ int8_t LLB_Stack_Pop(LLB_Stack_t* handle)
 	{
 		if (handle->length == 1)
 		{
-			LLB_Stack_DeleteLastNode(handle);
+			success = LLB_Stack_DeleteLastNode(handle);
 		}
 		else
 		{
