@@ -10,8 +10,14 @@ This repository contains implementations and explanations of various data struct
 
 1. [Arrays](#arrays)
 2. [Linked Lists](#linked-lists)
+   - [Singly Linked List](#singly-linked-list)
+   - [Doubly Linked List](#doubly-linked-list)
 3. [Stacks](#stacks)
+   - [Array-Based Stack](#array-based-stack)
+   - [Linked List-Based Stack](#linked-list-based-stack)
 4. [Queues](#queues)
+   - [Array-Based Queue](#array-based-queue)
+   - [Linked List-Based Queue](#linked-list-based-queue)
 5. [Trees](#trees)
 6. [Graphs](#graphs)
 7. [Hash Tables](#hash-tables)
@@ -47,14 +53,42 @@ A linked list is a sequence of nodes where each node contains data and a referen
 ### Time Complexity
 - Access: O(n)
 - Search: O(n)
-- Insertion: O(1) (at head/tail)
-- Deletion: O(1) (at head/tail), O(n) (searching for the node)
 
 ### Common Operations
 - Inserting nodes (at head, tail, or specific position)
 - Deleting nodes
 - Searching for a value
 - Traversing the list
+
+### Singly Linked List
+
+#### Description
+A singly linked list allows traversal in one direction, from the head to the tail.
+
+#### Time Complexity
+- Insertion: O(1) (at head/tail)
+- Deletion: O(1) (at head), O(n) (searching for the node)
+
+#### Common Operations
+- Insert at head/tail
+- Delete at head/tail
+- Search for a value
+- Traverse the list
+
+### Doubly Linked List
+
+#### Description
+A doubly linked list contains nodes with references to both the next and previous nodes, allowing traversal in both directions.
+
+#### Time Complexity
+- Insertion: O(1) (at head/tail)
+- Deletion: O(1) (at head/tail), O(n) (searching for the node)
+
+#### Common Operations
+- Insert at head/tail
+- Delete at head/tail
+- Search for a value
+- Traverse the list (forward and backward)
 
 ---
 
@@ -73,6 +107,26 @@ A stack is a Last In, First Out (LIFO) data structure where elements are added a
 - Pop (remove the top element)
 - Peek (view the top element without removing it)
 
+#### Array-Based Stack
+
+##### Description
+An array-based stack uses an array to store elements.
+
+##### Time Complexity
+- Push: O(1)
+- Pop: O(1)
+- Peek: O(1)
+
+#### Linked List-Based Stack
+
+##### Description
+A linked list-based stack uses a linked list to store elements, allowing dynamic memory allocation.
+
+##### Time Complexity
+- Push: O(1)
+- Pop: O(1)
+- Peek: O(1)
+
 ---
 
 ## Queues
@@ -88,6 +142,31 @@ A queue is a First In, First Out (FIFO) data structure where elements are added 
 ### Common Operations
 - Enqueue (add an element to the back)
 - Dequeue (remove an element from the front)
+- Peek (view the front element without removing it)
+
+#### Array-Based Queue
+
+##### Description
+An array-based queue uses an array to store elements and requires a fixed size.
+
+##### Time Complexity
+- Enqueue: O(1)
+- Dequeue: O(1)
+- Peek: O(1)
+
+#### Linked List-Based Queue
+
+##### Description
+A linked list-based queue uses a linked list to store elements, allowing dynamic memory allocation.
+
+##### Time Complexity
+- Enqueue: O(1)
+- Dequeue: O(1)
+- Peek: O(1)
+
+### Common Operations
+- Enqueue (add an element)
+- Dequeue (remove an element)
 - Peek (view the front element without removing it)
 
 ---
