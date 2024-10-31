@@ -8,7 +8,7 @@ Array_t* Array_Create(int size)
 	Array_t* arrayPointer = (Array_t*)malloc(sizeof(Array_t));
 	if (arrayPointer != NULL)
 	{
-		arrayPointer->ptr = (DATA_TYPE*)malloc(sizeof(DATA_TYPE) * size);
+		arrayPointer->ptr = (ARRAY_DATA_TYPE*)malloc(sizeof(ARRAY_DATA_TYPE) * size);
 		if (arrayPointer->ptr != NULL)
 		{
 			arrayPointer->size = size;
@@ -40,7 +40,7 @@ void Array_Display(Array_t* handle)
 	printf("+++++\n");
 }
 
-int8_t Array_Add(Array_t* handle, DATA_TYPE data)
+int8_t Array_Add(Array_t* handle, ARRAY_DATA_TYPE data)
 {
 	int8_t success = -1;
 	if (handle->length < handle->size)
@@ -52,7 +52,7 @@ int8_t Array_Add(Array_t* handle, DATA_TYPE data)
 	return success;
 }
 
-int8_t Array_Insert(Array_t* handle, uint32_t index, DATA_TYPE data)
+int8_t Array_Insert(Array_t* handle, uint32_t index, ARRAY_DATA_TYPE data)
 {
 	int8_t success = -1;
 	if (handle->length < handle->size && index <= handle->length)
@@ -68,7 +68,7 @@ int8_t Array_Insert(Array_t* handle, uint32_t index, DATA_TYPE data)
 	return success;
 }
 
-void Array_Delete(Array_t* handle, uint32_t index)
+int8_t Array_Delete(Array_t* handle, uint32_t index)
 {
 	int8_t success = -1;
 	if (handle->length > 0 && index < handle->length)
@@ -83,7 +83,7 @@ void Array_Delete(Array_t* handle, uint32_t index)
 	return success;
 }
 
-int8_t Array_Get(Array_t* handle, uint32_t index, DATA_TYPE* data)
+int8_t Array_Get(Array_t* handle, uint32_t index, ARRAY_DATA_TYPE* data)
 {
 	int8_t success = -1;
 	if (index >= 0 && index <= handle->length - 1)
@@ -94,7 +94,7 @@ int8_t Array_Get(Array_t* handle, uint32_t index, DATA_TYPE* data)
 	return success;
 }
 
-void Array_Set(Array_t* handle, uint32_t index, DATA_TYPE data)
+void Array_Set(Array_t* handle, uint32_t index, ARRAY_DATA_TYPE data)
 {
 	if (index >= 0 && index <= handle->length - 1)
 	{
@@ -102,9 +102,9 @@ void Array_Set(Array_t* handle, uint32_t index, DATA_TYPE data)
 	}
 }
 
-DATA_TYPE Array_Min(Array_t* handle)
+ARRAY_DATA_TYPE Array_Min(Array_t* handle)
 {
-	DATA_TYPE min = 0;
+	ARRAY_DATA_TYPE min = 0;
 	if (handle->length > 0)
 	{
 		min = handle->ptr[0];
@@ -119,9 +119,9 @@ DATA_TYPE Array_Min(Array_t* handle)
 	return min;
 }
 
-DATA_TYPE Array_Max(Array_t* handle)
+ARRAY_DATA_TYPE Array_Max(Array_t* handle)
 {
-	DATA_TYPE max = 0;
+	ARRAY_DATA_TYPE max = 0;
 	if (handle->length > 0)
 	{
 		max = handle->ptr[0];
@@ -207,7 +207,7 @@ void Array_Sort(Array_t* handle)
 	/* TODO: Add an enum for sorting algorithms */
 }
 
-int64_t Array_LineerSearch(Array_t* handle, DATA_TYPE data)
+int64_t Array_LineerSearch(Array_t* handle, ARRAY_DATA_TYPE data)
 {
 	int64_t index = -1;
 	for (uint32_t i = 0; i < handle->length; i++)
@@ -225,7 +225,7 @@ void Transposition(Array_t* handle, uint32_t index)
 {
 	if (index > 0)
 	{
-		DATA_TYPE swapData = handle->ptr[index - 1];
+		ARRAY_DATA_TYPE swapData = handle->ptr[index - 1];
 		handle->ptr[index - 1] = handle->ptr[index];
 		handle->ptr[index] = swapData;
 	}
@@ -235,13 +235,13 @@ void MoveToFront(Array_t* handle, uint32_t index)
 {
 	if (index > 0)
 	{
-		DATA_TYPE swapData = handle->ptr[0];
+		ARRAY_DATA_TYPE swapData = handle->ptr[0];
 		handle->ptr[0] = handle->ptr[index];
 		handle->ptr[index] = swapData;
 	}
 }
 
-int64_t Array_LineerSearch_Transposition(Array_t* handle, DATA_TYPE data)
+int64_t Array_LineerSearch_Transposition(Array_t* handle, ARRAY_DATA_TYPE data)
 {
 	int64_t index = -1;
 	for (uint32_t i = 0; i < handle->length; i++)
@@ -256,7 +256,7 @@ int64_t Array_LineerSearch_Transposition(Array_t* handle, DATA_TYPE data)
 	return index;
 }
 
-int64_t Array_LineerSearch_MoveToFront(Array_t* handle, DATA_TYPE data)
+int64_t Array_LineerSearch_MoveToFront(Array_t* handle, ARRAY_DATA_TYPE data)
 {
 	int64_t index = -1;
 	for (uint32_t i = 0; i < handle->length; i++)
@@ -271,7 +271,7 @@ int64_t Array_LineerSearch_MoveToFront(Array_t* handle, DATA_TYPE data)
 	return index;
 }
 
-int64_t Array_BinarySearch(Array_t* handle, DATA_TYPE data)
+int64_t Array_BinarySearch(Array_t* handle, ARRAY_DATA_TYPE data)
 {
 	uint32_t lowIndex = 0;
 	uint32_t midIndex;

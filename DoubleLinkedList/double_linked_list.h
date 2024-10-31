@@ -3,19 +3,19 @@
 
 #include <stdint.h>
 
-typedef int DATA_TYPE;
+typedef int DOUBLE_LL_DATA_TYPE;
 
-struct Node
+struct Double_LL_Node
 {
-	int data;
-	struct Node* prev;
-	struct Node* next;
+	DOUBLE_LL_DATA_TYPE data;
+	struct Double_LL_Node* prev;
+	struct Double_LL_Node* next;
 };
 
 typedef struct 
 {
-	struct Node* head;
-	struct Node* tail;
+	struct Double_LL_Node* head;
+	struct Double_LL_Node* tail;
 	uint32_t length;
 }DoubleLinkedList_t;
 
@@ -30,11 +30,11 @@ void DoubleLinkedList_Display(DoubleLinkedList_t* handle);
  *
  *  Traversing whole list starting from head
  */
-DATA_TYPE DoubleLinkedList_Max(DoubleLinkedList_t* handle);
+DOUBLE_LL_DATA_TYPE DoubleLinkedList_Max(DoubleLinkedList_t* handle);
 
-struct Node* DoubleLinkedList_CreateNode(DATA_TYPE data);
+struct Double_LL_Node* DoubleLinkedList_CreateNode(DOUBLE_LL_DATA_TYPE data);
 
-void DoubleLinkedList_InsertFirstNode(DoubleLinkedList_t* handle, DATA_TYPE data);
+void DoubleLinkedList_InsertFirstNode(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data);
 
 void DoubleLinkedList_DeleteLastNode(DoubleLinkedList_t* handle);
 
@@ -42,13 +42,13 @@ void DoubleLinkedList_DeleteLastNode(DoubleLinkedList_t* handle);
  *  Time Complexity = O(1)
  *
  */
-int8_t DoubleLinkedList_InsertAtHead(DoubleLinkedList_t* handle, DATA_TYPE data);
+int8_t DoubleLinkedList_InsertAtHead(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data);
 
 /**
  *  Time Complexity = O(1)
  *
  */
-int8_t DoubleLinkedList_InsertAtTail(DoubleLinkedList_t* handle, DATA_TYPE data);
+int8_t DoubleLinkedList_InsertAtTail(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data);
 
 /**
  *  Time Complexity:
@@ -56,7 +56,7 @@ int8_t DoubleLinkedList_InsertAtTail(DoubleLinkedList_t* handle, DATA_TYPE data)
  *  - Min = O(1) if index is 0
  *  - Max = O(n) if index is lenght of the list
  */
-int8_t DoubleLinkedList_InsertAtIndex(DoubleLinkedList_t* handle, DATA_TYPE data, uint32_t index);
+int8_t DoubleLinkedList_InsertAtIndex(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data, uint32_t index);
 
 /**
  *  Time Complexity = O(1)
@@ -86,6 +86,11 @@ int8_t DoubleLinkedList_DeleteAtIndex(DoubleLinkedList_t* handle, uint32_t index
 void DoubleLinkedList_Reverse(DoubleLinkedList_t* handle);
 
 /**
+ *  Time Complexity = O(n)
+ */
+void DoubleLinkedList_Reverse_SlidingPointers(DoubleLinkedList_t* handle);
+
+/**
  *  Time Complexity = O(1)
  */
 DoubleLinkedList_t* DoubleLinkedList_Concat(DoubleLinkedList_t* first, DoubleLinkedList_t* second);
@@ -108,6 +113,6 @@ int8_t DoubleLinkedList_DetectLoop(DoubleLinkedList_t* handle);
  *  We cannot use Binary Search on linked list 
  *  because we cannot directly access the middle element 
  */
-struct Node* DoubleLinkedList_Search(DoubleLinkedList_t* handle, DATA_TYPE data);
+struct Double_LL_Node* DoubleLinkedList_Search(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data);
 
 #endif /* DOUBLE_LINKED_LIST_H */

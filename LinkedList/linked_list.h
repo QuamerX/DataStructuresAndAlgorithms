@@ -3,17 +3,17 @@
 
 #include <stdint.h>
 
-typedef int DATA_TYPE;
+typedef int LL_DATA_TYPE;
 
-struct Node
+struct LL_Node
 {
-	int data;
-	struct Node* next;
+	LL_DATA_TYPE data;
+	struct LL_Node* next;
 };
 
 typedef struct 
 {
-	struct Node* head;
+	struct LL_Node* head;
 	uint32_t length;
 }LinkedList_t;
 
@@ -28,11 +28,11 @@ void LinkedList_Display(LinkedList_t* handle);
  *
  *  Traversing whole list starting from head
  */
-DATA_TYPE LinkedList_Max(LinkedList_t* handle);
+LL_DATA_TYPE LinkedList_Max(LinkedList_t* handle);
 
-struct Node* LinkedList_CreateNode(DATA_TYPE data);
+struct LL_Node* LinkedList_CreateNode(LL_DATA_TYPE data);
 
-void LinkedList_InsertFirstNode(LinkedList_t* handle, DATA_TYPE data);
+void LinkedList_InsertFirstNode(LinkedList_t* handle, LL_DATA_TYPE data);
 
 void LinkedList_DeleteLastNode(LinkedList_t* handle);
 
@@ -40,14 +40,14 @@ void LinkedList_DeleteLastNode(LinkedList_t* handle);
  *  Time Complexity = O(1)
  *
  */
-int8_t LinkedList_InsertAtHead(LinkedList_t* handle, DATA_TYPE data);
+int8_t LinkedList_InsertAtHead(LinkedList_t* handle, LL_DATA_TYPE data);
 
 /**
  *  Time Complexity = O(n)
  *
  *  Have to iterate through all list
  */
-int8_t LinkedList_InsertAtTail(LinkedList_t* handle, DATA_TYPE data);
+int8_t LinkedList_InsertAtTail(LinkedList_t* handle, LL_DATA_TYPE data);
 
 /**
  *  Time Complexity:
@@ -55,7 +55,7 @@ int8_t LinkedList_InsertAtTail(LinkedList_t* handle, DATA_TYPE data);
  *  - Min = O(1) if index is 0
  *  - Max = O(n) if index is lenght of the list
  */
-int8_t LinkedList_InsertAtIndex(LinkedList_t* handle, DATA_TYPE data, uint32_t index);
+int8_t LinkedList_InsertAtIndex(LinkedList_t* handle, LL_DATA_TYPE data, uint32_t index);
 
 /**
  *  Time Complexity = O(1)
@@ -116,6 +116,6 @@ int8_t LinkedList_DetectLoop(LinkedList_t* handle);
  *  We cannot use Binary Search on linked list 
  *  because we cannot directly access the middle element 
  */
-struct Node* LinkedList_Search(LinkedList_t* handle, DATA_TYPE data);
+struct LL_Node* LinkedList_Search(LinkedList_t* handle, LL_DATA_TYPE data);
 
 #endif /* LINKED_LIST_H */

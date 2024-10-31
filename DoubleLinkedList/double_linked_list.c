@@ -17,7 +17,7 @@ void DoubleLinkedList_Destroy(DoubleLinkedList_t* handle)
 {
 	for (uint32_t i = 0; i < handle->length; i++)
 	{
-		struct Node* node = handle->head->next;
+		struct Double_LL_Node* node = handle->head->next;
 		free(handle->head);
 		handle->head = node;
 	}
@@ -27,7 +27,7 @@ void DoubleLinkedList_Destroy(DoubleLinkedList_t* handle)
 void DoubleLinkedList_Display(DoubleLinkedList_t* handle)
 {
 	printf("-----\n");
-	struct Node* node = handle->head;
+	struct Double_LL_Node* node = handle->head;
 	for (int i = 0; i < handle->length; i++)
 	{
 		printf("%d\n", node->data);
@@ -36,10 +36,10 @@ void DoubleLinkedList_Display(DoubleLinkedList_t* handle)
 	printf("+++++\n");
 }
 
-DATA_TYPE DoubleLinkedList_Max(DoubleLinkedList_t* handle)
+DOUBLE_LL_DATA_TYPE DoubleLinkedList_Max(DoubleLinkedList_t* handle)
 {
-	struct Node* node = handle->head;
-	DATA_TYPE max = handle->head->data;
+	struct Double_LL_Node* node = handle->head;
+	DOUBLE_LL_DATA_TYPE max = handle->head->data;
 	for (uint32_t i = 0; i < handle->length; i++)
 	{
 		if (node->data > max)
@@ -51,9 +51,9 @@ DATA_TYPE DoubleLinkedList_Max(DoubleLinkedList_t* handle)
 	return max;
 }
 
-struct Node* DoubleLinkedList_CreateNode(DATA_TYPE data) 
+struct Double_LL_Node* DoubleLinkedList_CreateNode(DOUBLE_LL_DATA_TYPE data) 
 {
-	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+	struct Double_LL_Node* newNode = (struct Double_LL_Node*)malloc(sizeof(struct Double_LL_Node));
 	if (newNode != NULL)
 	{
 		newNode->data = data;
@@ -63,9 +63,9 @@ struct Node* DoubleLinkedList_CreateNode(DATA_TYPE data)
 	return newNode;
 }
 
-void DoubleLinkedList_InsertFirstNode(DoubleLinkedList_t* handle, DATA_TYPE data) 
+void DoubleLinkedList_InsertFirstNode(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data) 
 {
-	struct Node* newNode = DoubleLinkedList_CreateNode(data);
+	struct Double_LL_Node* newNode = DoubleLinkedList_CreateNode(data);
 	if (newNode != NULL)
 	{
 		handle->head = newNode;
@@ -82,7 +82,7 @@ void DoubleLinkedList_DeleteLastNode(DoubleLinkedList_t* handle)
 	handle->length = 0;
 }
 
-int8_t DoubleLinkedList_InsertAtHead(DoubleLinkedList_t* handle, DATA_TYPE data)
+int8_t DoubleLinkedList_InsertAtHead(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data)
 {
 	int8_t success = -1;
 	if (handle->length == 0)
@@ -91,7 +91,7 @@ int8_t DoubleLinkedList_InsertAtHead(DoubleLinkedList_t* handle, DATA_TYPE data)
 	}
 	else
 	{
-		struct Node* newHead = DoubleLinkedList_CreateNode(data);
+		struct Double_LL_Node* newHead = DoubleLinkedList_CreateNode(data);
 		if (newHead != NULL)
 		{
 			newHead->next = handle->head;
@@ -104,7 +104,7 @@ int8_t DoubleLinkedList_InsertAtHead(DoubleLinkedList_t* handle, DATA_TYPE data)
 	return success;
 }
 
-int8_t DoubleLinkedList_InsertAtTail(DoubleLinkedList_t* handle, DATA_TYPE data)
+int8_t DoubleLinkedList_InsertAtTail(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data)
 {
 	int8_t success = -1;
 	if (handle->length == 0)
@@ -113,7 +113,7 @@ int8_t DoubleLinkedList_InsertAtTail(DoubleLinkedList_t* handle, DATA_TYPE data)
 	}
 	else
 	{
-		struct Node* newTail = DoubleLinkedList_CreateNode(data);
+		struct Double_LL_Node* newTail = DoubleLinkedList_CreateNode(data);
 		if (newTail != NULL)
 		{
 			handle->tail->next = newTail;
@@ -126,7 +126,7 @@ int8_t DoubleLinkedList_InsertAtTail(DoubleLinkedList_t* handle, DATA_TYPE data)
 	return success;
 }
 
-int8_t DoubleLinkedList_InsertAtIndex(DoubleLinkedList_t* handle, DATA_TYPE data, uint32_t index)
+int8_t DoubleLinkedList_InsertAtIndex(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data, uint32_t index)
 {
 	int8_t success = -1;
 	if (index <= handle->length)
@@ -141,13 +141,13 @@ int8_t DoubleLinkedList_InsertAtIndex(DoubleLinkedList_t* handle, DATA_TYPE data
 		}
 		else
 		{
-			struct Node* newNode = DoubleLinkedList_CreateNode(data);
+			struct Double_LL_Node* newNode = DoubleLinkedList_CreateNode(data);
 			if (newNode != NULL)
 			{
 				/* index closer to head */
 				if (handle->length - (index + 1) > handle->length / 2)
 				{
-					struct Node* iterator = handle->head;
+					struct Double_LL_Node* iterator = handle->head;
 					for (uint32_t i = 0; i < handle->length; i++)
 					{
 						if (i == index - 1)
@@ -165,7 +165,7 @@ int8_t DoubleLinkedList_InsertAtIndex(DoubleLinkedList_t* handle, DATA_TYPE data
 				}
 				else /* index closer to tail */
 				{
-					struct Node* iterator = handle->tail;
+					struct Double_LL_Node* iterator = handle->tail;
 					for (uint32_t i = handle->length; i > 0; i--)
 					{
 						if (i == index + 1)
@@ -198,7 +198,7 @@ int8_t DoubleLinkedList_DeleteAtHead(DoubleLinkedList_t* handle)
 		}
 		else
 		{
-			struct Node* newHead = handle->head->next;
+			struct Double_LL_Node* newHead = handle->head->next;
 			free(handle->head);
 			handle->head = newHead;
 			handle->length--;
@@ -220,7 +220,7 @@ int8_t DoubleLinkedList_DeleteAtTail(DoubleLinkedList_t* handle)
 		}
 		else
 		{
-			struct Node* newTail = handle->tail->prev;
+			struct Double_LL_Node* newTail = handle->tail->prev;
 			free(handle->tail);
 			newTail->next = NULL;
 			handle->tail = newTail;
@@ -248,12 +248,12 @@ int8_t DoubleLinkedList_DeleteAtIndex(DoubleLinkedList_t* handle, uint32_t index
 			}
 			else
 			{
-				struct Node* iterator = handle->head;
+				struct Double_LL_Node* iterator = handle->head;
 				for (uint32_t i = 0; i < index - 1; i++)
 				{
 					iterator = iterator->next;
 				}
-				struct Node* linkNode = iterator->next->next;
+				struct Double_LL_Node* linkNode = iterator->next->next;
 				free(iterator->next);
 				iterator->next = linkNode;
 				handle->length--;
@@ -266,7 +266,7 @@ int8_t DoubleLinkedList_DeleteAtIndex(DoubleLinkedList_t* handle, uint32_t index
 
 void DoubleLinkedList_Reverse(DoubleLinkedList_t* handle)
 {
-	struct Node* iterator = handle->head;
+	struct Double_LL_Node* iterator = handle->head;
 	while (1)
 	{
 		if (iterator->next == NULL)
@@ -277,11 +277,28 @@ void DoubleLinkedList_Reverse(DoubleLinkedList_t* handle)
 			handle->head = iterator;
 			break;
 		}
-		struct Node* swapNode = iterator->next;
+		struct Double_LL_Node* swapNode = iterator->next;
 		iterator->next = iterator->prev;
 		iterator->prev = swapNode;
 		iterator = swapNode;
 	}
+}
+
+void DoubleLinkedList_Reverse_SlidingPointers(DoubleLinkedList_t* handle) 
+{
+	struct Double_LL_Node* previousNode = NULL;
+	struct Double_LL_Node* currentNode = handle->head;
+	struct Double_LL_Node* nextNode = NULL;
+
+	while (currentNode != NULL)
+	{
+		nextNode = currentNode->next;
+		currentNode->next = previousNode;
+		currentNode->prev = nextNode;
+		previousNode = currentNode;
+		currentNode = nextNode;
+	}
+	handle->head = previousNode;
 }
 
 DoubleLinkedList_t* DoubleLinkedList_Concat(DoubleLinkedList_t* first, DoubleLinkedList_t* second) 
@@ -306,8 +323,8 @@ DoubleLinkedList_t* DoubleLinkedList_Concat(DoubleLinkedList_t* first, DoubleLin
 
 int8_t DoubleLinkedList_DetectLoop(DoubleLinkedList_t* handle)
 {
-	struct Node* slow = handle->head;
-	struct Node* fast = handle->head;
+	struct Double_LL_Node* slow = handle->head;
+	struct Double_LL_Node* fast = handle->head;
 	if (handle->length > 1)
 	{
 		while (slow != NULL && fast != NULL && fast->next != NULL)
@@ -323,10 +340,10 @@ int8_t DoubleLinkedList_DetectLoop(DoubleLinkedList_t* handle)
 	return 0;
 }
 
-struct Node* DoubleLinkedList_Search(DoubleLinkedList_t* handle, DATA_TYPE data)
+struct Double_LL_Node* DoubleLinkedList_Search(DoubleLinkedList_t* handle, DOUBLE_LL_DATA_TYPE data)
 {
-	struct Node* returnNode = NULL;
-	struct Node* node = handle->head;
+	struct Double_LL_Node* returnNode = NULL;
+	struct Double_LL_Node* node = handle->head;
 	for (uint32_t i = 0; i < handle->length; i++)
 	{
 		if (node->data == data)
