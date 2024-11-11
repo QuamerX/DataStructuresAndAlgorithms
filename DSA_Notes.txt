@@ -1,0 +1,125 @@
+									TREES
+
+Degree of a node: How many children it has
+Degree of a tree: Max number of child that any node has
+
+Internal(Non-leaf) node: Node that has at least one child
+External(leaf) node: Node that has no child
+
+      A
+     / \
+    B   C		
+   / \
+  D   E
+
+C - D - E: Leaf Nodes
+A - B: Non-leaf Nodes
+
+        A                   (Level 0, Height 3)
+      /   \
+     B     C                (Level 1, Height 2)
+   / | \     \
+  D  E   F    G             (Level 2, Height 1 for D, E, F, and G)
+ /|   |   |\
+H I   J   K L M             (Level 3, Height 0 for H, I, J, K, L, and M)
+
+Degree of this tree is 3 because B and F has max number of nodes which is 3
+
+Binary Tree: Each node has a maximum degree of 2 
+Ternary Tree: Each node has a maximum degree of 3.
+M-ary Tree: Each node has a maximum degree of M.
+N-ary Tree: There is no upper limit to degree.
+B-Trees and B+ Trees: Used in databases, these trees set specific rules on the minimum and maximum number of children each node can have to maintain balanced height and efficient data retrieval.
+
+					
+								  BINARY TREE
+Each node has a maximum degree of 2
+
+								Unlabeled nodes:
+
+Catalan Number for binary tree(How many different tree can be structured): 
+((2n)! / n!) / (n + 1) => n: Unlabeled node count
+
+How many of these have the maximum height:
+2^(n-1) => n: Unlabeled node count
+
+
+								Labeled nodes:
+
+Catalan Number for binary tree(How many different tree can be structured): 
+(((2n)! / n!) / (n + 1)) * n! => n: Labeled node count
+​
+
+								Height and nodes:
+								
+Min node count that has h height = h + 1
+Max node count that has h height = (2^(h+1)) - 1
+
+Min height of n nodes = log2(n + 1) - 1
+Max height of n nodes = n - 1
+
+								STRICT BINARY TREE
+								
+Strict binary tree: (also known as a proper binary tree or full binary tree) is a binary tree in which every node has either 0 or 2 children.
+
+      A
+     / \
+    B   C
+   / \   
+  D   E    
+
+								Height and nodes:
+
+Min node count that has h height = (2*h) + 1
+Max node count that has h height = (2^(h+1)) - 1
+
+Min height of n nodes = log2(n + 1) - 1
+Max height of n nodes = (n - 1) / 2
+
+							Internal and External nodes
+
+External node count = internal node count + 1
+
+									M-ARY TREE
+Each node has a maximum degree of M.
+	
+								STRICT M-ARY TREE
+
+								Height and nodes: WTF
+
+Min node count that has h height = (M * h) + 1
+Max node count that has h height = ((M ^ (h + 1)) - 1) / (M - 1)
+
+Min height of n nodes = logM(n(M - 1) + 1) - 1
+Max height of n nodes = (n - 1) / M
+
+							Internal and External nodes
+
+External node count = ((M - 1) * internal node count) + 1
+
+
+							  COMPLETE BINARY TREE
+         1
+       /   \
+      2     3
+     / \   / 
+    4   5 6   
+    
+Filled from left to right, there is no NULL nodes before
+
+								TREE TRAVERSALS
+								
+tree-traversal.jpg
+
+
+
+
+
+
+
+
+
+
+
+
+
