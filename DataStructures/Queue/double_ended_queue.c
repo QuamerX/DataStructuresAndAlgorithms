@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "double_ended_queue.h"
 
 DEQueue_t* DEQueue_Create()

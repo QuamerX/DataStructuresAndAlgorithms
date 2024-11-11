@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "double_linked_list.h"
 
 DoubleLinkedList_t* DoubleLinkedList_Create() 

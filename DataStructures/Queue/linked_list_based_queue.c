@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "linked_list_based_queue.h"
 
 LLB_Queue_t* LLB_Queue_Create()

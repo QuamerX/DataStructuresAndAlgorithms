@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "linked_list.h"
 
 LinkedList_t* LinkedList_Create() 

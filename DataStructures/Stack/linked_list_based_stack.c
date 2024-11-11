@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "linked_list_based_stack.h"
 
 LLB_Stack_t* LLB_Stack_Create()
@@ -18,7 +19,7 @@ void LLB_Stack_Destroy(LLB_Stack_t* handle)
 	{
 		for (uint32_t i = 0; i < handle->length; i++)
 		{
-			struct LLB_Node* node = handle->top->next;
+			struct LLB_Stack_Node* node = handle->top->next;
 			free(handle->top);
 			handle->top = node;
 		}
@@ -40,7 +41,7 @@ void LLB_Stack_Display(LLB_Stack_t* handle)
 
 struct LLB_Stack_Node* LLB_Stack_CreateNode(LLB_STACK_DATA_TYPE data)
 {
-	struct LLB_Stack_Node* newNode = (struct LLB_Node*)malloc(sizeof(struct LLB_Stack_Node));
+	struct LLB_Stack_Node* newNode = (struct LLB_Stack_Node*)malloc(sizeof(struct LLB_Stack_Node));
 	if (newNode != NULL)
 	{
 		newNode->data = data;
@@ -107,7 +108,7 @@ int8_t LLB_Stack_Pop(LLB_Stack_t* handle)
 		}
 		else
 		{
-			struct LLB_Node* newHead = handle->top->next;
+			struct LLB_Stack_Node* newHead = handle->top->next;
 			free(handle->top);
 			handle->top = newHead;
 			handle->length--;
