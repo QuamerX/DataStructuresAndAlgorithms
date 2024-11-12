@@ -111,7 +111,10 @@ Filled from left to right, there is no NULL nodes before
 								
 tree-traversal.jpg
 
+									  BST
+Binary search tree inserts the values depending on their value. If value is smaller than node it will go to left node else right node. So BTS will have O(log2(n)) search, insert time in average.
 
+									AVL TREE
 
 
 

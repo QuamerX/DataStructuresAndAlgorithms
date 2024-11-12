@@ -14,7 +14,7 @@ BST_Node_t* BST_CreateNode(BST_DATA_TYPE data)
     return new_node;
 }
 
-BST_Node_t* BST_InsertRecursive(BST_Node_t* root, BST_DATA_TYPE data)
+BST_Node_t* BST_Insert(BST_Node_t* root, BST_DATA_TYPE data)
 {
     if (root == NULL)
     {
@@ -24,28 +24,14 @@ BST_Node_t* BST_InsertRecursive(BST_Node_t* root, BST_DATA_TYPE data)
     {
         if (data < root->data) 
         {
-            root->left = BST_InsertRecursive(root->left, data);
+            root->left = BST_Insert(root->left, data);
         }
         else if (data > root->data) 
         {
-            root->right = BST_InsertRecursive(root->right, data);
-        }
-        else 
-        {
-            return root;
+            root->right = BST_Insert(root->right, data);
         }
     }
     return root;
-}
-
-int8_t BST_Insert(BST_Node_t* root, BST_DATA_TYPE data) 
-{
-    int8_t success = 0;
-    if (BST_InsertRecursive(root, data) == NULL)
-    {
-        success = -1;
-    }
-    return success;
 }
 
 int8_t BST_Search(BST_Node_t* root, BST_DATA_TYPE data)
@@ -85,73 +71,77 @@ BST_Node_t* BST_Access(BST_Node_t* root, BST_DATA_TYPE data)
         {
             return BST_Access(root->left, data);
         }
-        else
+        else if (data > root->data)
         {
             return BST_Access(root->right, data);
         }
+        else
+        {
+        	return NULL;
+        }
     }
 }
 
-BST_Node_t* BST_FindMinOnLeft(BST_Node_t* root)
+BST_Node_t* BST_FindNewRoot(BST_Node_t* root)
 {
-    while (root != NULL && root->left != NULL)
-    {
-        root = root->left;
-    }
-    return root;
+	while (root != NULL && root->right != NULL)
+	{
+	    root = root->right;
+	}
+	return root;
 }
 
-BST_Node_t* BST_FindMaxOnRight(BST_Node_t* root)
+BST_Node_t* BST_Delete(BST_Node_t* root, BST_DATA_TYPE data) 
 {
-    while (root != NULL && root->right != NULL)
-    {
-        root = root->right;
-    }
-    return root;
-}
-
-int8_t BST_Delete(BST_Node_t* root, BST_DATA_TYPE data) 
-{
-    int8_t success = 0;
-    if (root == NULL)
-    {
-        success = -1;
-    }
-    else
+    if (root != NULL)
     {
         if (data < root->data)
         {
-            success = BST_Delete(root->left, data);
+            root->left = BST_Delete(root->left, data);
         }
         else if (data > root->data)
         {
-            success = BST_Delete(root->right, data);
+            root->right = BST_Delete(root->right, data);
         }
         else
         {
             if (root->left == NULL) 
             {
-                BST_Node_t* temp = root->right;
+                BST_Node_t* newRoot = root->right;
                 free(root);
-                return temp;
+                return newRoot;
             }
             else if (root->right == NULL) 
             {
-                BST_Node_t* temp = root->left;
+                BST_Node_t* newRoot = root->left;
                 free(root);
-                return temp;
+                return newRoot;
             }
-
-            BST_Node_t* temp = BST_FindMinOnLeft(root->right);
-            root->data = temp->data;
-            root->right = BST_Delete(root->right, temp->data);
+            BST_Node_t* newRoot = BST_FindNewRoot(root->left); /* In-order predecessor */
+            root->data = newRoot->data; 
+    		root->left = BST_Delete(root->left, newRoot->data);
         }
     }
-
-    return success;
+    return root;
 }
 
-void BST_Traverse(BST_Node_t* root, EnumTraverse_t traverseType) {
+void BST_Print(BST_Node_t* root)
+{
+	printf("--------------\n");
+	printf("Pre-order: ");
+	BST_Traverse(root, eTraverse_PRE_ORDER);
+	printf("\n");
+	printf("In-order: ");
+	BST_Traverse(root, eTraverse_IN_ORDER);
+	printf("\n");
+	printf("Post-order: ");
+	BST_Traverse(root, eTraverse_POST_ORDER);
+	printf("\n");
+	printf("++++++++++++++\n");
+}
+
+void BST_Traverse(BST_Node_t* root, EnumTraverse_t traverseType) 
+{
     if (root != NULL) 
     {
         if (traverseType == eTraverse_PRE_ORDER)
