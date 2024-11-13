@@ -12,21 +12,17 @@ void PrintArray(int* arrayToPrint, int arraySize);
 int main() 
 {
 	AVL_Node_t* root = NULL;
+	root = AVL_Insert(root, 40);
+	root = AVL_Insert(root, 20);
 	root = AVL_Insert(root, 50);
-	root = AVL_Insert(root, 75);
-	root = AVL_Insert(root, 25);
 	root = AVL_Insert(root, 30);
-	root = AVL_Insert(root, 12);
-	root = AVL_Insert(root, 35);
-	root = AVL_Insert(root, 80);
-	root = AVL_Insert(root, 7);
-	root = AVL_Insert(root, 85);
+	root = AVL_Insert(root, 60);
+	root = AVL_Insert(root, 10);
+	root = AVL_Insert(root, 5);
+	root = AVL_Insert(root, 25);
+	root = AVL_Insert(root, 36);
 	AVL_Print(root);
-	root = AVL_Delete(root, 50);
-	AVL_Print(root);
-	root = AVL_Insert(root, 78);
-	AVL_Print(root);
-	root = AVL_Delete(root, 30);
+	root = AVL_Insert(root, 27);
 	AVL_Print(root);
     return 0;
 }
