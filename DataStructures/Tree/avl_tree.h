@@ -22,8 +22,6 @@ typedef struct AVL_Node_t
 
 AVL_Node_t* AVL_CreateNode(AVL_DATA_TYPE data);
 
-int AVL_Height(AVL_Node_t* node);
-
 AVL_Node_t* AVL_Insert(AVL_Node_t* root, AVL_DATA_TYPE data);
 
 int8_t AVL_Search(AVL_Node_t* root, AVL_DATA_TYPE data);

@@ -4,14 +4,14 @@
 
 BST_Node_t* BST_CreateNode(BST_DATA_TYPE data)
 {
-    BST_Node_t* new_node = (BST_Node_t*)malloc(sizeof(BST_Node_t));
-    if (new_node != NULL) 
+    BST_Node_t* newNode = (BST_Node_t*)malloc(sizeof(BST_Node_t));
+    if (newNode != NULL) 
     {
-        new_node->data = data;
-        new_node->left = NULL;
-        new_node->right = NULL;
+        newNode->data = data;
+        newNode->left = NULL;
+        newNode->right = NULL;
     }
-    return new_node;
+    return newNode;
 }
 
 BST_Node_t* BST_Insert(BST_Node_t* root, BST_DATA_TYPE data)

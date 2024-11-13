@@ -13,24 +13,20 @@ int main()
 {
 	AVL_Node_t* root = NULL;
 	root = AVL_Insert(root, 50);
-	root = AVL_Insert(root, 1);
 	root = AVL_Insert(root, 75);
-	root = AVL_Insert(root, 74);
-	root = AVL_Insert(root, 100);
-	root = AVL_Insert(root, 125);
-	root = AVL_Insert(root, 124);
-	root = AVL_Insert(root, 123);
-	root = AVL_Insert(root, 150);
-	root = AVL_Insert(root, 148);
-	root = AVL_Insert(root, 149);
-	root = AVL_Insert(root, 146);
-	root = AVL_Insert(root, 147);
-	root = AVL_Insert(root, 145);
-	root = AVL_Insert(root, 140);
-	root = AVL_Insert(root, 141);
-	root = AVL_Insert(root, 142);
-	root = AVL_Insert(root, 135);
-	printf("Height: %d\n", AVL_Height(root));
+	root = AVL_Insert(root, 25);
+	root = AVL_Insert(root, 30);
+	root = AVL_Insert(root, 12);
+	root = AVL_Insert(root, 35);
+	root = AVL_Insert(root, 80);
+	root = AVL_Insert(root, 7);
+	root = AVL_Insert(root, 85);
+	AVL_Print(root);
+	root = AVL_Delete(root, 50);
+	AVL_Print(root);
+	root = AVL_Insert(root, 78);
+	AVL_Print(root);
+	root = AVL_Delete(root, 30);
 	AVL_Print(root);
     return 0;
 }

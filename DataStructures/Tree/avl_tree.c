@@ -4,92 +4,104 @@
 
 AVL_Node_t* AVL_CreateNode(AVL_DATA_TYPE data)
 {
-    AVL_Node_t* new_node = (AVL_Node_t*)malloc(sizeof(AVL_Node_t));
-    if (new_node != NULL) 
+    AVL_Node_t* newNode = (AVL_Node_t*)malloc(sizeof(AVL_Node_t));
+    if (newNode != NULL) 
     {
-        new_node->data = data;
-        new_node->left = NULL;
-        new_node->right = NULL;
+        newNode->data = data;
+        newNode->left = NULL;
+        newNode->right = NULL;
     }
-    return new_node;
+    return newNode;
 }
 
-int AVL_BalanceFactor(AVL_Node_t* node)
+int AVL_Height(AVL_Node_t* root)
 {
-	int leftHeight = AVL_Height(node->left);
-	int rightHeight = AVL_Height(node->right);
-	
-	return (leftHeight - rightHeight);
-}
-
-int AVL_Height(AVL_Node_t* node)
-{
-    if (node == NULL)
+    if (root == NULL)
     {   
     	return -1;
     }
 
-    int leftHeight = AVL_Height(node->left);
-    int rightHeight = AVL_Height(node->right);
+    int leftHeight = AVL_Height(root->left);
+    int rightHeight = AVL_Height(root->right);
 
     return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
 }
 
-AVL_Node_t* AVL_RightRotate(AVL_Node_t* root)
+int AVL_BalanceFactor(AVL_Node_t* root)
 {
-	/* TODO: Implement */
-	return root;
+	int leftHeight = AVL_Height(root->left);
+	int rightHeight = AVL_Height(root->right);
+	
+	return (leftHeight - rightHeight);
 }
 
 AVL_Node_t* AVL_LeftRotate(AVL_Node_t* root)
 {
-	/* TODO: Implement */
+	if(root != NULL)
+	{	
+		AVL_Node_t* newRoot = root->right;
+		root->right = newRoot->left;
+		newRoot->left = root;
+		return newRoot;
+	}
 	return root;
 }
 
-AVL_Node_t* AVL_RightLeftRotate(AVL_Node_t* root)
+AVL_Node_t* AVL_RightRotate(AVL_Node_t* root)
 {
-	/* TODO: Implement */
+	if(root != NULL)
+	{	
+		AVL_Node_t* newRoot = root->left;
+		root->left = newRoot->right;
+		newRoot->right = root;
+		return newRoot;
+	}
 	return root;
 }
 
 AVL_Node_t* AVL_LeftRightRotate(AVL_Node_t* root)
 {
-	/* TODO: Implement */
-	return root;
+    root->left = AVL_LeftRotate(root->left);
+    return AVL_RightRotate(root);
+}
+
+AVL_Node_t* AVL_RightLeftRotate(AVL_Node_t* root)
+{
+    root->right = AVL_RightRotate(root->right);
+    return AVL_LeftRotate(root);
 }
 
 AVL_Node_t* AVL_Balance(AVL_Node_t* root)
 {
-    if(AVL_Height(root) == 1)
+	if(root == NULL)
+	{
+		return root;
+	}
+
+    int balanceFactor = AVL_BalanceFactor(root);
+    if(balanceFactor == 2) /* Left Heavy */
     {
-    	/* Left subtree's level is higher */
-    	/* TODO: Implement */
-    	return root;
+        if (AVL_BalanceFactor(root->left) >= 0)
+        {
+            root = AVL_RightRotate(root);
+        }
+        else if (AVL_BalanceFactor(root->left) == -1)
+        {
+            root = AVL_LeftRightRotate(root);
+        }
     }
-    else if(AVL_Height(root) == -1)
+    else if(balanceFactor == -2) /* Right Heavy */
     {
-    	/* Right subtree's level is higher */
-    	/* TODO: Implement */
-    	return root;
+        if (AVL_BalanceFactor(root->right) <= 0)
+        {
+            root = AVL_LeftRotate(root);
+        }
+        else if (AVL_BalanceFactor(root->right) == 1)
+        {
+            root = AVL_RightLeftRotate(root);
+        }
     }
-    else if(AVL_Height(root) > 1)
-    {
-    	/* Tree is left-heavy */
-    	/* TODO: Implement */
-    	return root;
-    }
-    else if(AVL_Height(root) > 1)
-    {
-    	/* Tree is right-heavy */
-    	/* TODO: Implement */
-    	return root;
-    }
-    else
-    {
-    	/* Perfectly balanced */
-    	return root;
-    }
+    return root;
 }
 
 AVL_Node_t* AVL_Insert(AVL_Node_t* root, AVL_DATA_TYPE data)
@@ -109,8 +121,7 @@ AVL_Node_t* AVL_Insert(AVL_Node_t* root, AVL_DATA_TYPE data)
             root->right = AVL_Insert(root->right, data);
         }
     }
-    root = AVL_Balance(root);
-    return root;
+    return AVL_Balance(root);
 }
 
 int8_t AVL_Search(AVL_Node_t* root, AVL_DATA_TYPE data)
@@ -161,7 +172,7 @@ AVL_Node_t* AVL_Access(AVL_Node_t* root, AVL_DATA_TYPE data)
     }
 }
 
-AVL_Node_t* AVL_FindNewRoot(AVL_Node_t* root)
+AVL_Node_t* AVL_FindMax(AVL_Node_t* root)
 {
     while (root != NULL && root->right != NULL)
     {
@@ -172,38 +183,49 @@ AVL_Node_t* AVL_FindNewRoot(AVL_Node_t* root)
 
 AVL_Node_t* AVL_Delete(AVL_Node_t* root, AVL_DATA_TYPE data) 
 {
-    if (root != NULL)
+    if (root == NULL) 
     {
-        if (data < root->data)
+        return root;
+    }
+
+    if (data < root->data) 
+    {
+        root->left = AVL_Delete(root->left, data);
+    } 
+    else if (data > root->data) 
+    {
+        root->right = AVL_Delete(root->right, data);
+    } 
+    else 
+    {
+        if (root->left == NULL && root->right == NULL) 
         {
-            root->left = AVL_Delete(root->left, data);
-        }
-        else if (data > root->data)
+            free(root);
+            root = NULL;
+        } 
+        else if (root->left == NULL) 
         {
-            root->right = AVL_Delete(root->right, data);
-        }
-        else
+            AVL_Node_t* temp = root;
+            root = root->right;
+            free(temp);
+        } 
+        else if (root->right == NULL) 
         {
-            if (root->left == NULL) 
-            {
-                AVL_Node_t* newRoot = root->right;
-                free(root);
-                return newRoot;
-            }
-            else if (root->right == NULL) 
-            {
-                AVL_Node_t* newRoot = root->left;
-                free(root);
-                return newRoot;
-            }
-            AVL_Node_t* newRoot = AVL_FindNewRoot(root->left); /* In-order predecessor */
-            root->data = newRoot->data; 
-            root->left = AVL_Delete(root->left, newRoot->data);
+            AVL_Node_t* temp = root;
+            root = root->left;
+            free(temp);
+        } 
+        else 
+        {
+            AVL_Node_t* temp = AVL_FindMax(root->left);
+            root->data = temp->data;
+            root->left = AVL_Delete(root->left, temp->data);
         }
     }
-    root = AVL_Balance(root);
-    return root;
+
+    return AVL_Balance(root);
 }
+
 
 void AVL_Print(AVL_Node_t* root)
 {
