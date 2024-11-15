@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Algorithms/Sort/sort.h"
-#include "DataStructures/Tree/avl_tree.h"
+#include "DataStructures/Tree/two_three_tree.h"
 
 int arr[100];
 int size;
@@ -11,19 +11,12 @@ void PrintArray(int* arrayToPrint, int arraySize);
 
 int main() 
 {
-	AVL_Node_t* root = NULL;
-	root = AVL_Insert(root, 40);
-	root = AVL_Insert(root, 20);
-	root = AVL_Insert(root, 50);
-	root = AVL_Insert(root, 30);
-	root = AVL_Insert(root, 60);
-	root = AVL_Insert(root, 10);
-	root = AVL_Insert(root, 5);
-	root = AVL_Insert(root, 25);
-	root = AVL_Insert(root, 36);
-	AVL_Print(root);
-	root = AVL_Insert(root, 27);
-	AVL_Print(root);
+	TTT_Node_t* root = NULL;
+	root = TTT_Insert(root, 40);
+	root = TTT_Insert(root, 20);
+	TTT_Print(root);
+	root = TTT_Insert(root, 27);
+	TTT_Print(root);
     return 0;
 }
 
