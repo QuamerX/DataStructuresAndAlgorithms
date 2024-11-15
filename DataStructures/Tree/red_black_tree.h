@@ -25,6 +25,7 @@ typedef struct RB_Node_t
     EnumColor_t color;
     struct RB_Node_t* left;
     struct RB_Node_t* right;
+    uint8_t isRoot;
 }RB_Node_t;
 
 RB_Node_t* RB_CreateNode(RB_DATA_TYPE data);

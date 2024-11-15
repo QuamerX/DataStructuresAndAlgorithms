@@ -11,6 +11,7 @@ RB_Node_t* RB_CreateNode(RB_DATA_TYPE data)
         newNode->left = NULL;
         newNode->right = NULL;
         newNode->color = eColor_RED;
+        newNode->isRoot = 0;
     }
     return newNode;
 }
@@ -24,6 +25,7 @@ RB_Node_t* RB_CreateRoot(RB_DATA_TYPE data)
         newNode->left = NULL;
         newNode->right = NULL;
         newNode->color = eColor_BLACK;
+        newNode->isRoot = 1;
     }
     return newNode;
 }
@@ -85,6 +87,24 @@ RB_Node_t* RB_RightLeftRotate(RB_Node_t* root)
     return RB_LeftRotate(root);
 }
 
+EnumColor_t RB_NodeColor(RB_Node_t* root)
+{
+    if (root == NULL)
+    {
+        return eColor_BLACK;
+    }
+    return root->color;
+}
+
+uint8_t RB_IsDoubleRed(RB_Node_t* left, RB_Node_t* right)
+{
+    if(RB_NodeColor(left) == eColor_RED && RB_NodeColor(right) == eColor_RED)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 RB_Node_t* RB_Balance(RB_Node_t* root)
 {
 	if(root == NULL)
@@ -92,27 +112,48 @@ RB_Node_t* RB_Balance(RB_Node_t* root)
 		return root;
 	}
 
-    int balanceFactor = RB_BalanceFactor(root);
-    if(balanceFactor == 2) /* Left Heavy */
+    if (RB_IsDoubleRed(root->left, root->left->left))
     {
-        if (RB_BalanceFactor(root->left) >= 0)
+        if (RB_NodeColor(root->right) == eColor_RED) /* Uncle red */
         {
-            root = RB_RightRotate(root);
+            
         }
-        else if (RB_BalanceFactor(root->left) == -1)
+        else
         {
-            root = RB_LeftRightRotate(root);
+
         }
     }
-    else if(balanceFactor == -2) /* Right Heavy */
+    else if (RB_IsDoubleRed(root->left, root->left->right))
     {
-        if (RB_BalanceFactor(root->right) <= 0)
+        if (RB_NodeColor(root->right) == eColor_RED) /* Uncle red */
         {
-            root = RB_LeftRotate(root);
+            
         }
-        else if (RB_BalanceFactor(root->right) == 1)
+        else
         {
-            root = RB_RightLeftRotate(root);
+
+        }
+    }
+    else if (RB_IsDoubleRed(root->right, root->right->left))
+    {
+        if (RB_NodeColor(root->left) == eColor_RED) /* Uncle red */
+        {
+            
+        }
+        else
+        {
+
+        }
+    }
+    else if (RB_IsDoubleRed(root->right, root->right->right))
+    {
+        if (RB_NodeColor(root->left) == eColor_RED) /* Uncle red */
+        {
+            
+        }
+        else
+        {
+
         }
     }
     return root;
@@ -121,11 +162,7 @@ RB_Node_t* RB_Balance(RB_Node_t* root)
 
 RB_Node_t* RB_Insert(RB_Node_t* root, RB_DATA_TYPE data)
 {
-    if (root == NULL)
-    {
-        return RB_CreateNode(data);
-    }
-    else
+    if (root != NULL)
     {
         if (data < root->data) 
         {
