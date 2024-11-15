@@ -21,6 +21,7 @@ typedef struct TTT_Node_t
     struct TTT_Node_t* middle;
     struct TTT_Node_t* right;
     uint8_t keyCount;
+    uint8_t splitted;
 }TTT_Node_t;
 
 TTT_Node_t* TTT_CreateNode(TTT_DATA_TYPE key);

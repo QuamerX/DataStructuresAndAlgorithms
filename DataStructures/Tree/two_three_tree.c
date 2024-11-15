@@ -12,14 +12,9 @@ TTT_Node_t* TTT_CreateNode(TTT_DATA_TYPE key)
         newNode->middle = NULL;
         newNode->right = NULL;
         newNode->keyCount = 1;
+        newNode->splitted = 0;
     }
     return newNode;
-}
-
-TTT_Node_t* TTT_Split(TTT_Node_t* root)
-{
-	/* TODO: Implement */
-	return root;
 }
 
 uint8_t TTT_IsLeafNode(TTT_Node_t* root)
@@ -29,6 +24,98 @@ uint8_t TTT_IsLeafNode(TTT_Node_t* root)
 		return 1;	
 	}
 	return 0;
+}
+
+TTT_Node_t* TTT_Split(TTT_Node_t* root, TTT_DATA_TYPE key)
+{
+	if(root != NULL)
+	{
+		if (key < root->leftKey) 
+		{
+			root->left = TTT_CreateNode(key);
+			root->middle = TTT_CreateNode(root->rightKey);
+		}
+		else if (key > root->leftKey && key < root->rightKey) 
+		{
+			root->left = TTT_CreateNode(root->leftKey);
+			root->middle = TTT_CreateNode(root->rightKey);
+			root->leftKey = key;
+		}
+		else
+		{
+			root->middle = TTT_CreateNode(key);
+			root->left = TTT_CreateNode(root->leftKey);
+			root->leftKey = root->rightKey;
+		}
+		root->keyCount = 1;
+		root->splitted = 1;
+	}
+	return root;
+}
+
+TTT_Node_t* TTT_MergeWithRoot(TTT_Node_t* root)
+{
+	if(root->left->splitted == 1)
+	{
+		if(root->keyCount == 1)
+		{
+			if(root->left->leftKey > root->leftKey)
+			{
+				root->rightKey = root->left->leftKey;
+				root->left = root->left->left;
+				root->middle = root->left->middle;
+				free(root->left);
+			}
+			else
+			{
+				root->rightKey = root->leftKey;
+				root->leftKey = root->left->leftKey;
+				root->left = root->left->left;
+				root->middle = root->left->middle;
+				free(root->left);
+			}
+			root->keyCount = 2;
+		}
+		else /* root->keyCount == 2 */
+		{	
+			root = TTT_Split(root, root->left->leftKey);
+		}
+		root->left->splitted = 0;
+	}
+	else if(root->middle->splitted == 1)
+	{
+		if(root->keyCount == 1)
+		{
+			if(root->middle->leftKey > root->leftKey)
+			{
+				root->rightKey = root->middle->leftKey;
+				root->middle = root->middle->left;
+				root->middle = root->middle->middle;
+				free(root->left);
+			}
+			else
+			{
+				root->rightKey = root->leftKey;
+				root->leftKey = root->left->leftKey;
+				root->left = root->left->left;
+				root->middle = root->left->middle;
+				free(root->left);
+			}
+			root->keyCount = 2;
+		}
+		else /* root->keyCount == 2 */
+		{	
+			root = TTT_Split(root, root->left->leftKey);
+		}
+		root->middle->splitted = 0;
+	}
+	else if(root->right->splitted == 1)
+	{
+		root->right->splitted = 0;
+	}
+	
+
+    return root;
 }
 
 TTT_Node_t* TTT_Insert(TTT_Node_t* root, TTT_DATA_TYPE key)
@@ -46,6 +133,7 @@ TTT_Node_t* TTT_Insert(TTT_Node_t* root, TTT_DATA_TYPE key)
 				if (key < root->leftKey) 
 				{
 					root->left = TTT_Insert(root->left, key);
+					
 				}
 				else
 				{
@@ -67,6 +155,7 @@ TTT_Node_t* TTT_Insert(TTT_Node_t* root, TTT_DATA_TYPE key)
 					root->right = TTT_Insert(root->right, key);
 				}
 			}
+			root = TTT_MergeWithRoot(root);
     	}
 		else
 		{
@@ -81,10 +170,11 @@ TTT_Node_t* TTT_Insert(TTT_Node_t* root, TTT_DATA_TYPE key)
 					root->rightKey = root->leftKey;
 					root->leftKey = key;
 				}
+				root->keyCount = 2;
 			}
 			else /* root->keyCount == 2 */
 			{	
-				root = TTT_Split(root);
+				root = TTT_Split(root, key);
 			}
 		}
     }
@@ -200,13 +290,13 @@ void TTT_Traverse(TTT_Node_t* root, EnumTraverse_t traverseType)
         {
         	if(root->keyCount == 1)
         	{
-        		printf(" |%d| ", root->leftKey);
+        		printf("|%d|", root->leftKey);
 		        TTT_Traverse(root->left, traverseType);
 		        TTT_Traverse(root->middle, traverseType);
         	}
         	else
         	{
-        		printf(" |%d-%d| ", root->leftKey, root->rightKey);
+        		printf("|%d-%d|", root->leftKey, root->rightKey);
 		        TTT_Traverse(root->left, traverseType);
 		        TTT_Traverse(root->middle, traverseType);
 		        TTT_Traverse(root->right, traverseType);
@@ -214,11 +304,20 @@ void TTT_Traverse(TTT_Node_t* root, EnumTraverse_t traverseType)
         }
         else if (traverseType == eTraverse_IN_ORDER)
         {
-	    	TTT_Traverse(root->left, traverseType);
-	        printf("|%d-", root->leftKey);
-	        TTT_Traverse(root->middle, traverseType);
-		    printf("%d|", root->rightKey);
-		    TTT_Traverse(root->right, traverseType);
+        	if(root->keyCount == 1)
+        	{
+		        TTT_Traverse(root->left, traverseType);
+			    printf("|%d|", root->leftKey);
+			    TTT_Traverse(root->middle, traverseType);
+        	}
+        	else
+        	{
+    	    	TTT_Traverse(root->left, traverseType);
+			    printf("|%d-", root->leftKey);
+			    TTT_Traverse(root->middle, traverseType);
+				printf("%d|", root->rightKey);
+				TTT_Traverse(root->right, traverseType);
+        	}
         }
         else
         {
@@ -226,14 +325,14 @@ void TTT_Traverse(TTT_Node_t* root, EnumTraverse_t traverseType)
         	{
 		        TTT_Traverse(root->left, traverseType);
 		        TTT_Traverse(root->middle, traverseType);
-		        printf(" |%d| ", root->leftKey);
+		        printf("|%d|", root->leftKey);
         	}
         	else
         	{
 		        TTT_Traverse(root->left, traverseType);
 		        TTT_Traverse(root->middle, traverseType);
 		        TTT_Traverse(root->right, traverseType);
-		        printf(" |%d-%d| ", root->leftKey, root->rightKey);
+		        printf("|%d-%d|", root->leftKey, root->rightKey);
         	}
         }
     }

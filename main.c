@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Algorithms/Sort/sort.h"
-#include "DataStructures/Tree/two_three_tree.h"
+#include "DataStructures/Tree/red_black_tree.h"
 
 int arr[100];
 int size;
@@ -11,12 +11,16 @@ void PrintArray(int* arrayToPrint, int arraySize);
 
 int main() 
 {
-	TTT_Node_t* root = NULL;
-	root = TTT_Insert(root, 40);
-	root = TTT_Insert(root, 20);
-	TTT_Print(root);
-	root = TTT_Insert(root, 27);
-	TTT_Print(root);
+	RB_Node_t* root = RB_CreateRoot(40);
+	RB_Print(root);
+	root = RB_Insert(root, 20);
+	RB_Print(root);
+	root = RB_Insert(root, 27);
+	RB_Print(root);
+	root = RB_Insert(root, 60);
+	RB_Print(root);
+	root = RB_Insert(root, 70);
+	RB_Print(root);
     return 0;
 }
 
