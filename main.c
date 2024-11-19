@@ -9,6 +9,13 @@ int size;
 void CreateArray(void);
 void PrintArray(int* arrayToPrint, int arraySize);
 
+int main()
+{
+	
+	return 0;
+}
+
+/*
 int main() 
 {
 	RB_Node_t* root = RB_CreateRoot(50);
@@ -49,6 +56,7 @@ int main()
 
     return 0;
 }
+*/
 
 /*
 int main() 
