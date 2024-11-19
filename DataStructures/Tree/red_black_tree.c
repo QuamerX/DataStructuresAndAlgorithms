@@ -30,27 +30,6 @@ RB_Node_t* RB_CreateRoot(RB_DATA_TYPE data)
     return newNode;
 }
 
-int RB_Height(RB_Node_t* root)
-{
-    if (root == NULL)
-    {   
-    	return -1;
-    }
-
-    int leftHeight = RB_Height(root->left);
-    int rightHeight = RB_Height(root->right);
-
-    return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
-}
-
-int RB_BalanceFactor(RB_Node_t* root)
-{
-	int leftHeight = RB_Height(root->left);
-	int rightHeight = RB_Height(root->right);
-	
-	return (leftHeight - rightHeight);
-}
-
 RB_Node_t* RB_RecolorNode(RB_Node_t* node, EnumColor_t color)
 {
     if (node != NULL)
