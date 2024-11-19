@@ -14,6 +14,12 @@ typedef enum
 
 typedef enum
 {
+	eSide_LEFT,
+	eSide_RIGHT
+}EnumSide_t;
+
+typedef enum
+{
     eTraverse_PRE_ORDER,
     eTraverse_IN_ORDER,
     eTraverse_POST_ORDER
@@ -23,9 +29,9 @@ typedef struct RB_Node_t
 {
     RB_DATA_TYPE data;
     EnumColor_t color;
+    uint8_t isFirstRoot;
     struct RB_Node_t* left;
     struct RB_Node_t* right;
-    uint8_t isRoot;
 }RB_Node_t;
 
 RB_Node_t* RB_CreateNode(RB_DATA_TYPE data);

@@ -11,16 +11,42 @@ void PrintArray(int* arrayToPrint, int arraySize);
 
 int main() 
 {
-	RB_Node_t* root = RB_CreateRoot(40);
+	RB_Node_t* root = RB_CreateRoot(50);
+	RB_Print(root);
+	root = RB_Insert(root, 65);
 	RB_Print(root);
 	root = RB_Insert(root, 20);
 	RB_Print(root);
-	root = RB_Insert(root, 27);
+	root = RB_Insert(root, 15);
 	RB_Print(root);
-	root = RB_Insert(root, 60);
+	root = RB_Insert(root, 35);
+	RB_Print(root);
+	root = RB_Insert(root, 55);
 	RB_Print(root);
 	root = RB_Insert(root, 70);
 	RB_Print(root);
+	root = RB_Insert(root, 80);
+	RB_Print(root);
+	root = RB_Insert(root, 68);
+	RB_Print(root);
+	root = RB_Insert(root, 90);
+	RB_Print(root);
+
+	root = RB_Delete(root, 55);
+	RB_Print(root);
+	root = RB_Delete(root, 30);
+	RB_Print(root);
+	root = RB_Delete(root, 90);
+	RB_Print(root);
+	root = RB_Delete(root, 80);
+	RB_Print(root);
+	root = RB_Delete(root, 50);
+	RB_Print(root);
+	root = RB_Delete(root, 35);
+	RB_Print(root);
+	root = RB_Delete(root, 15);
+	RB_Print(root);
+
     return 0;
 }
 
