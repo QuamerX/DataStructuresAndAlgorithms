@@ -156,15 +156,15 @@ Comparison based sorts:
 - Insertion Sort  = O(n^2)      - Adaptive     - Stable
 - Seletion Sort   = O(n^2)      - Non-adaptive - Non-stable
 - Heap Sort       = O(nlog2(n))
-- Merge Sort		  = O(nlog2(n))
+- Merge Sort		  = O(nlog2(n)) - Using extra space
 - Quick Sort      = O(nlog2(n)) 
 - Tree Sort       = O(nlog2(n))
-- Shell Sort      = O(n^(3/2))
+- Shell Sort      = O(n^(3/2))  - Adaptive     
 
 Index based sorts:
 - Count Sort      = O(n)
 - Bucket Sort     = O(n)
-- Radix Sort      = O(n)
+- Radix Sort      = O(n) or O(dn) d means the digit count of the maximum number Ex: 12345: d = 5
 
                                             BUBBLE SORT
 
@@ -185,7 +185,7 @@ And keeps searhing the other minimum values from remaining part of the array.
 Implementation is simple as for loop inside another for loop.
 It cannot detect if array is already sorted and will compare each and every element with every other one.
 
-                                               QUICK SORT
+                                              QUICK SORT
 
 Select a random element as a Pivot in array and swap smaller elements to right with the bigger elements on the left.
 After that put the pivot in the middle and sort the left and right part of the array like they are another arrays to be sorted.
@@ -223,7 +223,7 @@ counterArray[] = {0, 1, 0, 3, 4, 0, 0, 7, 8, 9, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0
                      1     3                 9                    16                          
                            3
 
-                                              RADIX SORT
+                                               RADIX SORT
 
 This sorting algorithm uses an array of 10 element for base 10 decimal numbers which mostly is decimal.
 It starts:
@@ -252,6 +252,8 @@ counterArray[10] = {17, 125, 0, 300, 0, 567, 0, 0, 889, 999};
 arr[] = {17,49,70,81,300,567,889,999}
 
 This goes up if there are bigger elements
+
+                                               SHELL SORT
 
 
 
