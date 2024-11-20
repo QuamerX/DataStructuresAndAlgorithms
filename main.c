@@ -11,6 +11,11 @@ void PrintArray(int* arrayToPrint, int arraySize);
 
 int main()
 {
+	CreateArray();
+	PrintArray(arr, size);
+	QuickSort(arr, size, eOrderType_ASC);
+	PrintArray(arr, size);
+	/*
 	int arr[] = {10, 20, 15, 30, 40, 50, 35};
 	BH_Handle_t* handle = BH_Create(128, MAX_HEAP);
 	for (size_t i = 0; i < 7; i++)
@@ -20,6 +25,7 @@ int main()
 	}
 
 	BH_HeapSort(handle);
+	*/
 
 	/*
 	for (size_t i = 0; i < 7; i++)

@@ -175,32 +175,56 @@ int QuickSortPartition(int* arrayToSort, int lowIndex, int highIndex, EnumOrderT
 {
     /* Use the last element as the pivot */
     int pivot = arrayToSort[highIndex];
-    int i = lowIndex - 1;
-
+    int i = lowIndex;
+    int j = highIndex - 1;
 	if(orderType == eOrderType_ASC)
 	{
-		for (int j = lowIndex; j < highIndex; j++) 
+		while (j >= i) 
 		{
-		    if (arrayToSort[j] <= pivot) 
+            if (arrayToSort[i] >= pivot && arrayToSort[j] <= pivot) 
 		    {
-		        i++;
 		        Swap(&arrayToSort[i], &arrayToSort[j]);
+                i++;
+                j--;
 		    }
+            else
+            {
+                if (arrayToSort[i] <= pivot) 
+                {
+                    i++;
+                }
+                if (arrayToSort[j] >= pivot) 
+                {
+                    j--;
+                }
+            }
 		}
 	}
 	else
 	{
-		for (int j = lowIndex; j < highIndex; j++) 
-		{
-		    if (arrayToSort[j] >= pivot) 
+		while (j >= i) 
+		{            
+            if (arrayToSort[i] <= pivot && arrayToSort[j] >= pivot) 
 		    {
-		        i++;
 		        Swap(&arrayToSort[i], &arrayToSort[j]);
+                i++;
+                j--;
 		    }
+            else
+            {
+                if (arrayToSort[i] >= pivot) 
+                {
+                    i++;
+                }
+                if (arrayToSort[j] <= pivot) 
+                {
+                    j--;
+                }
+            }
 		}
 	}
-    Swap(&arrayToSort[i + 1], &arrayToSort[highIndex]);
-    return i + 1;
+    Swap(&arrayToSort[j + 1], &arrayToSort[highIndex]);
+    return j + 1;
 }
 
 void QuickSortRecursive(int* arrayToSort, int lowIndex, int highIndex, EnumOrderType_t orderType)
