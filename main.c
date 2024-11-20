@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Algorithms/Sort/sort.h"
-#include "DataStructures/Tree/red_black_tree.h"
+#include "DataStructures/Tree/binary_heap.h"
 
 int arr[100];
 int size;
@@ -11,7 +11,18 @@ void PrintArray(int* arrayToPrint, int arraySize);
 
 int main()
 {
-	
+	int arr[] = {42, 29, 18, 14, 7, 18, 12, 11, 13};
+	BH_Handle_t* handle = BH_Create(128, MIN_HEAP);
+	for (size_t i = 0; i < 9; i++)
+	{
+		BH_Insert(handle, arr[i]);
+		BH_Print(handle);
+	}
+	for (size_t i = 0; i < 9; i++)
+	{
+		BH_Delete(handle);
+		BH_Print(handle);
+	}
 	return 0;
 }
 
