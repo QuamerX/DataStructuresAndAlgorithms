@@ -116,6 +116,89 @@ Binary search tree inserts the values depending on their value. If value is smal
 
 									AVL TREE
 
+LL-RR-LR-RL Rotations, Balance factor with height to the leaf nodes.
+
+								 RED-BLACK TREE
+
+Root is always BLACK, new inserted node is always RED
+Check for RED parent and RED child conflict. This cannot happen.
+if Uncle is RED:
+- Parent is RED, Child is RED, Uncle is RED and Grandparent is BLACK
+Recolor: Parent = BLACK, Uncle = BLACK, Grandparent = RED,
+else if Uncle is BLACK:
+- Rotate and recolor: LL-RR(Zig-Zig) or LR-RL(Zig-Zag) rotations and recoloring is the opposite of when uncle is RED.
+
+								  BINARY HEAP
+								  
+Represented as array since it is a complete binary tree. MIN Heap and MAX Heap is the types.
+Insertion will be done to the next index in the array and swaps with the parents until finds its place
+Insertion is done in Level Order of the tree.
+Deletion will only delete the root node and replace the root with the last inserted element. And then swap with childs to find its place.
+Insertion will start from beginning of array, Heapify starts from the last inserted element's index.
+Heap sort is actually deleting the root and placing it at the end of the array representation. Which eventually sorts the array.
+Heap sort requires an array that already is a Binary Heap.
+Heapify requires a complete binary tree to heapify.
+
+**********************************************************************************
+
+								 	SORTING
+
+Sorting an array in ascending or descending order. Different algorithms exists and they are compared with these parameters:
+- Number of comparisons
+- Number of swaps
+- Is adaptive (Means that algorithm should take the minimum time on a sorted array)
+- Is stable (Means that algorithm should not swap places of the same values while sorting)
+- How much extra memory it requires
+
+
+Comparison based sorts:
+- Bubble Sort			= O(n^2)
+- Insertion Sort  = O(n^2)
+- Seletion Sort   = O(n^2)
+- Heap Sort       = O(nlog2(n))
+- Merge Sort		  = O(nlog2(n))
+- Quick Sort      = O(nlog2(n)) 
+- Tree Sort       = O(nlog2(n))
+- Shell Sort      = O(n^(3/2))
+
+Index based sorts:
+- Count Sort      = O(n)
+- Bucket Sort     = O(n)
+- Radix Sort      = O(n)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
