@@ -11,18 +11,25 @@ void PrintArray(int* arrayToPrint, int arraySize);
 
 int main()
 {
-	int arr[] = {42, 29, 18, 14, 7, 18, 12, 11, 13};
-	BH_Handle_t* handle = BH_Create(128, MIN_HEAP);
-	for (size_t i = 0; i < 9; i++)
+	int arr[] = {10, 20, 15, 30, 40, 50, 35};
+	BH_Handle_t* handle = BH_Create(128, MAX_HEAP);
+	for (size_t i = 0; i < 7; i++)
 	{
 		BH_Insert(handle, arr[i]);
 		BH_Print(handle);
 	}
-	for (size_t i = 0; i < 9; i++)
+
+	BH_HeapSort(handle);
+
+	/*
+	for (size_t i = 0; i < 7; i++)
 	{
 		BH_Delete(handle);
 		BH_Print(handle);
 	}
+	handle->index = 8;
+	BH_Print(handle);
+	*/
 	return 0;
 }
 

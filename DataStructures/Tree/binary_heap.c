@@ -89,7 +89,7 @@ int8_t BH_Delete(BH_Handle_t *handle)
 {
     if (handle != NULL)
     {
-        handle->heap[1] = handle->heap[handle->index - 1];
+        SwapValues(handle, 1, handle->index - 1);
         handle->index--;
         uint32_t rootIndex = 1;
         while (1)
@@ -186,6 +186,17 @@ int8_t BH_Delete(BH_Handle_t *handle)
         return 0;
     }
     return -1;
+}
+
+void BH_HeapSort(BH_Handle_t* handle)
+{
+    uint32_t elementCount = handle->index - 1;
+    for (size_t i = 0; i < elementCount; i++)
+	{
+		BH_Delete(handle);
+	}
+    handle->index = elementCount + 1;
+    BH_Print(handle);
 }
 
 void BH_Print(BH_Handle_t *handle)

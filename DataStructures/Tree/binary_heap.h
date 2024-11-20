@@ -30,6 +30,8 @@ int8_t BH_Delete(BH_Handle_t* handle);
 
 void BH_Print(BH_Handle_t* handle);
 
+void BH_HeapSort(BH_Handle_t* handle);
+
 void BH_Destroy(BH_Handle_t* handle);
 
 #endif // BINARY_HEAP_H
