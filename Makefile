@@ -15,7 +15,7 @@ TARGET = $(BUILD_DIR)/DSA
 # Rule to build the executable
 $(TARGET): $(OBJS)
 	@mkdir -p $(BUILD_DIR)
-	@$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+	@$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) -lm
 
 # Pattern rule for building .o files from .c files
 $(BUILD_DIR)/%.o: %.c

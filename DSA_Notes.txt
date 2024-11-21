@@ -255,9 +255,30 @@ This goes up if there are bigger elements
 
                                                SHELL SORT
 
+It calculates a "Gap" and uses Insertion Sort for the value at the edge of the gap. And gap will be divided by 2.
+There are various kind of "Gap choosing" like prime numbers 11-7-5-3-2 or half of the elements and keeps getting divided by 2.
 
 
 
+
+                                           HASHING AND HASH TABLE
+
+Hash table puts elements in a table and gives them calculated indexes for quick access.
+Open Hashing: Uses extra space outside of hash table
+- Chaining: Chaining is uses bucket as element which is a linked list and keeps all hash collided elements in sorted order.
+
+Closed Hashing: Does not uses extra space
+- Open Addressing:
+  * Linear Probing: If collusion happens, put the element to the next free space in hash table. 
+  (Delete is not recommended for linear probing. If you really need to delete an element, delete it and do a Rehashing.)
+  (Rehashing: Taking all the elements in the hash table and putting them back with the same hash function)
+  * Quadratic Probing: If collusion happens, put the element to the next i^2 index. (1-4-9 etc.)
+  * Double Hashing: If collusion happens, hash again. Maybe with a different version of hash function.
+
+
+
+
+                                                  GRAPHS
 
 
 

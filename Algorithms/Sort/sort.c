@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <math.h>
 #include "sort.h"
+#include "../../DataStructures/LinkedList/linked_list.h"
 
 void Swap(int* a, int* b);
 
@@ -240,6 +242,182 @@ void QuickSortRecursive(int* arrayToSort, int lowIndex, int highIndex, EnumOrder
 void QuickSort(int* arrayToSort, int arraySize, EnumOrderType_t orderType)
 {
 	QuickSortRecursive(arrayToSort, 0, arraySize - 1, orderType);
+}
+
+void ShellSort(int* arrayToSort, int arraySize, EnumOrderType_t orderType)
+{
+    
+}
+
+void CountSort(int* arrayToSort, int arraySize, EnumOrderType_t orderType)
+{
+    int maxValue = 0;
+    for (int i = 0; i < arraySize; i++)
+    {
+        if (arrayToSort[i] > maxValue)
+        {
+            maxValue = arrayToSort[i];
+        }
+    }
+    int* countArray = (int*)calloc(sizeof(int), maxValue + 1);
+
+    for (int i = 0; i < arraySize; i++)
+    {
+        countArray[arrayToSort[i]]++;
+    }
+
+    int writeIndex = 0;
+    if (orderType == eOrderType_ASC)
+    {
+        for (int j = 0; j < maxValue + 1;)
+        {
+            if (countArray[j] > 0)
+            {
+                arrayToSort[writeIndex] = j;
+                writeIndex++;
+                countArray[j]--;
+            }
+
+            if (countArray[j] == 0)
+            {
+                j++;
+            }
+        }
+    }
+    else
+    {
+        for (int j = maxValue + 1; j > 0;)
+        {
+            if (countArray[j] > 0)
+            {
+                arrayToSort[writeIndex] = j;
+                writeIndex++;
+                countArray[j]--;
+            }
+
+            if (countArray[j] == 0)
+            {
+                j--;
+            }
+        }
+    }
+    free(countArray);
+}
+
+void BucketSort(int* arrayToSort, int arraySize, EnumOrderType_t orderType)
+{
+    const int bucketCount = 10;
+    int maxValue = arrayToSort[0];
+    int minValue = arrayToSort[0];
+    for (int i = 1; i < arraySize; i++)
+    {
+        if (arrayToSort[i] > maxValue)
+        {
+            maxValue = arrayToSort[i];
+        }
+        if (arrayToSort[i] < minValue)
+        {
+            minValue = arrayToSort[i];
+        }
+    }
+    LinkedList_t** bucket = calloc(sizeof(LinkedList_t*), bucketCount);
+    for (int i = 0; i < bucketCount; i++)
+    {
+        bucket[i] = LinkedList_Create();
+    }
+    
+    for (int i = 0; i < arraySize; i++)
+    {
+        int bucketIndex = arrayToSort[i] / bucketCount;
+        int iterateIndex = 0;
+        struct LL_Node* iterator = bucket[bucketIndex]->head;
+        while (iterateIndex < bucket[bucketIndex]->length)
+        {
+            if (iterator->data < arrayToSort[i])
+            {
+                iterateIndex++;
+                iterator = iterator->next;
+            }
+            else
+            {
+                break;
+            }
+        }
+        LinkedList_InsertAtIndex(bucket[bucketIndex], arrayToSort[i], iterateIndex);
+    }
+
+    int j = 0;
+    int i = 0;
+    while (i < bucketCount)
+    {
+        if (bucket[i]->length > 0)
+        {
+            arrayToSort[j] = bucket[i]->head->data;
+            LinkedList_DeleteAtHead(bucket[i]);
+            j++;
+        }
+        else
+        {
+            LinkedList_Destroy(bucket[i]);
+            i++;
+        }
+    }
+}
+
+void RadixSort(int* arrayToSort, int arraySize, EnumOrderType_t orderType)
+{
+    const int bucketCount = 10; /* Decimal based numbers */
+    int maxValue = arrayToSort[0];
+    for (int i = 1; i < arraySize; i++)
+    {
+        if (arrayToSort[i] > maxValue)
+        {
+            maxValue = arrayToSort[i];
+        }
+    }
+    
+    int maxDigitCount = 0;
+    do
+    {
+        maxValue = maxValue / 10;
+        maxDigitCount++;
+    } while (maxValue > 0);
+    
+    LinkedList_t** bucket = calloc(sizeof(LinkedList_t*), bucketCount);
+    for (int i = 0; i < bucketCount; i++)
+    {
+        bucket[i] = LinkedList_Create();
+    }
+
+    for (int i = 0; i < maxDigitCount; i++)
+    {
+        for (int j = 0; j < arraySize; j++)
+        {
+            int bucketIndex = (arrayToSort[j] / (int)(pow(10, i))) % 10;
+            LinkedList_InsertAtTail(bucket[bucketIndex], arrayToSort[j]);
+        }
+
+        int j = 0;
+        int i = 0;
+        while (i < bucketCount)
+        {
+            if (bucket[i]->length > 0)
+            {
+                arrayToSort[j] = bucket[i]->head->data;
+                LinkedList_DeleteAtHead(bucket[i]);
+                j++;
+            }
+            else
+            {
+                i++;
+            }
+        }
+    }
+
+    for (int i = 0; i < bucketCount; i++)
+    {
+        LinkedList_Destroy(bucket[i]);
+    }       
 }
 
 void Swap(int* a, int* b)
