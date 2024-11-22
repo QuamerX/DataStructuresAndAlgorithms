@@ -246,7 +246,19 @@ void QuickSort(int* arrayToSort, int arraySize, EnumOrderType_t orderType)
 
 void ShellSort(int* arrayToSort, int arraySize, EnumOrderType_t orderType)
 {
-    
+    for (int gap = arraySize/2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < arraySize; i++)
+        {
+            int temp = arrayToSort[i];
+            int j;
+            for (j = i; j >= gap && arrayToSort[j-gap] > temp; j-=gap)
+            {
+                arrayToSort[j] = arrayToSort[j-gap];
+            }
+            arrayToSort[j] = temp;
+        }
+    }
 }
 
 void CountSort(int* arrayToSort, int arraySize, EnumOrderType_t orderType)

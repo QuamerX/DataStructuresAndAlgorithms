@@ -13,7 +13,7 @@ int main()
 {
 	CreateArray();
 	PrintArray(arr, size);
-	RadixSort(arr, size, eOrderType_ASC);
+	ShellSort(arr, size, eOrderType_ASC);
 	PrintArray(arr, size);
 	/*
 	int arr[] = {10, 20, 15, 30, 40, 50, 35};
