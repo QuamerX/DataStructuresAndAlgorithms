@@ -280,6 +280,114 @@ Closed Hashing: Does not uses extra space
 
                                                   GRAPHS
 
+Graph: A collection of vertices (or nodes) and edges (or arcs) connecting them.
+
+Denoted as G=(V,E) where:
+V is the set of vertices (e.g. V={A,B,C}).
+E is the set of edges (e.g. E={(A,B),(B,C)}).
+Vertex (Node): A point in the graph where edges meet.
+
+Example: A,B,C are vertices.
+Edge (Link): A connection between two vertices.
+
+Example: (A,B) is an edge between A and B.
 
 
+Directed Graph (Digraph): 
+  Edges have a direction, represented as (A,B), meaning there is a connection from A to B.
 
+Undirected Graph: 
+  Edges do not have a direction, represented as A,B, 
+  meaning there is a connection between A and B in both directions.
+
+Weighted Graph: 
+  Edges have weights or costs assigned to them (e.g., distance, cost).
+
+Unweighted Graph: 
+  All edges are considered equal (no weights).
+
+Sparse Graph: 
+  A graph with relatively few edges compared to the number of vertices.
+
+Dense Graph: 
+  A graph with a number of edges close to the maximum possible for the given vertices.
+
+In-Degree: 
+  Number of incoming edges to a vertex (for directed graphs).
+
+Out-Degree: 
+  Number of outgoing edges from a vertex (for directed graphs).
+
+Degree: 
+  Total number of edges connected to a vertex (for undirected graphs).
+
+Path: 
+  A sequence of edges that connect a sequence of vertices. (Example: A→B→C.)
+
+Cycle: 
+  A path that starts and ends at the same vertex. (Example: A→B→C→A.)
+
+Connected Graph: 
+  All vertices are connected by at least one path.
+
+Articulation Point:
+  This is the vertex that divides graph into multiple graphs when deleted.
+
+Strongly Connected Graph:
+  If there is a path from one vertex to any other vertex, it is strongly connected (for directed graph)
+
+Disconnected Graph: 
+  Some vertices are not connected by any path.
+
+Acyclic Graph: 
+  A graph with no cycles.
+
+DAG: 
+  A directed acyclic graph.
+
+Complete Graph: 
+  Every vertex is connected to every other vertex.
+
+Subgraph: 
+  A subset of a graph’s vertices and edges.
+
+Adjacency Matrix: 
+  A 2D array where matrix[i][j] indicates whether there is an edge between vertex i and j.
+
+Adjacency List: 
+  A list where each vertex stores its adjacent vertices.
+
+Edge List: 
+  A list of all edges in the graph.
+
+DFS (Depth-First Search): 
+  Traverses as deep as possible along a branch before backtracking. (Uses STACK)
+
+BFS (Breadth-First Search): 
+  Traverses all vertices at the current depth before moving deeper. (Uses QUEUE)
+
+Spanning Tree
+  A spanning tree of a graph is a subgraph that:
+    Includes all the vertices of the original graph.
+    Is a tree (i.e., connected and acyclic).
+
+For a graph with V vertices, the spanning tree has V−1 edges.
+There can be multiple spanning trees for a graph.
+Spanning trees are used in algorithms like Prim's and Kruskal's for Minimum Spanning Trees (MST).
+
+
+                                        PRIM'S ALGORITHM
+
+This algorithm finds the MST of a connected, weighted and undirected graph.
+- Select the minimum weighted link as a starting point.
+- Detect which node's next link is smaller.
+- Keep finding minimum weighted link of the next node.
+- Never visit a node twice.
+- If graph has N nodes there should be N - 1 links that connects all.
+- This algorithm cannot be used on disconnected graphs.
+
+                                        KRUSKAL'S ALGORITHM
+
+This algorithm also finds the MST of a connected, weighted and undirected graph.
+- Select all the edges starting from minimum and draw them unless they form a cycle.
+- This algorithm can be used on disconnected graphs.
